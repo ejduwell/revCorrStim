@@ -1,0 +1,12 @@
+
+
+outDir="/home/eduwell/Matlab_Sandbox/imgKernelNoise/exp2Test/individualFaceBIs/1000";
+%% Compute ssim(reconBI,actualBI) and ssim(computedCI,idealCI) for the various kernel noises and white noise
+structOut = KrnlSmplNoise_v10_Demo_multi();
+
+%% Save Data
+strtDir=pwd; 
+cd(outDir);
+save()
+
+cd(strtDir);
