@@ -15,11 +15,11 @@ pathToThisFile=which("rxivMatlabCode.m");
 currentDir = fileparts(pathToThisFile);
 
 % ensure rxivMatlabCode.sh is executable..
-chmodCmd=strcat("chmod +wrx ",currentDir,"/rxivMatlabCode.sh ");
+chmodCmd=strcat("chmod +wrx ",currentDir,"/rxivMatlabCode_v2.sh ");
 system(chmodCmd);
 
 % build bash command to call rxivMatlabCode.sh
-rxivCmd=strcat("bash ",currentDir,"/rxivMatlabCode.sh ", "'",baseDir,"'"," ","'",outDirBase,"'");
+rxivCmd=strcat("bash ",currentDir,"/rxivMatlabCode_v2.sh ", "'",baseDir,"'"," ","'",outDirBase,"'");
 
 % run the command in the bash shell..
 system(rxivCmd);
