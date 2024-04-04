@@ -93,7 +93,8 @@ comboImg=horzcat(exmplImgs,exmplImgs_wNoise);
     speech2_1_1 = ['In this experiment, you''ll see sets of two rectangular objects with noise overlaid. \n' ...
         'You''ll also see a central fixation square. You must always look at the central square. \n' ...
         'On some trials the rectangles will be fully visible. \n' ...
-        'On other trials, portions of the rectangles will be hidden behind occluder bars such that only parts of the objects are visible:'];
+        'On other trials, portions of the rectangles will be hidden behind occluder bars \n'...
+        'such that only parts of the objects are visible:'];
    
 
     scrn_Ctr=(scrn_left+scrn_right)/2;
@@ -104,8 +105,14 @@ comboImg=horzcat(exmplImgs,exmplImgs_wNoise);
     imgRect=[imTop,imLft,imBot,imRght];
     
     % draw the images
-    comboImg = imresize(comboImg,0.85,"nearest");
-    Screen('PutImage', window, comboImg);
+    %comboImg = imresize(comboImg,0.5,"nearest");
+    exmplImgs_wNoise=imresize(exmplImgs_wNoise,0.45,"nearest");
+    %ejd debug
+    %sca;
+    %pause="";
+    
+    %Screen('PutImage', window, comboImg);
+    Screen('PutImage', window, exmplImgs_wNoise);
     %Screen('PutImage', window, comboImg,imgRect);
 
     txtDistFrmTop2=85*scrn_1percY;
@@ -141,7 +148,7 @@ comboImg=horzcat(exmplImgs,exmplImgs_wNoise);
 
         [keyIsDown, firstPress, ~, ~, ~] = KbQueueCheck();
         if keyIsDown == 1
-            if KbName(firstPress) == 'Return'
+            if string(KbName(firstPress)) == "Return"
                 enter_pressed = 1;
             end
         end
@@ -184,7 +191,7 @@ comboImg=horzcat(exmplImgs,exmplImgs_wNoise);
 
         [keyIsDown, firstPress, ~, ~, ~] = KbQueueCheck();
         if keyIsDown == 1
-            if KbName(firstPress) == 'Return'
+            if string(KbName(firstPress)) == "Return"
                 enter_pressed = 1;
             end
         end

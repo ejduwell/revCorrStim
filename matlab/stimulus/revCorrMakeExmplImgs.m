@@ -63,11 +63,24 @@ end
 set(gcf,'color',[0.5,0.5,0.5]);
 hold on;
 
+%check if the tiledlayout function exists on this machine
+if exist('tiledlayout')>0
+tL=1;
+else
+tL=0;
+end
+
 %tiledlayout(2,2,"TileSpacing","tight","Padding","tight");
+
+if tL==1
 t=tiledlayout("flow","TileSpacing","tight","Padding","tight");
-title(t,panelTitle,'FontSize',20,'FontWeight','bold','Color','r');
+title(t,panelTitle,'FontSize',35,'FontWeight','bold','Color','r');
 nexttile
-%subplot(2,2,2);
+else
+  subplot(2,2,1);
+  %subplot_tight(2,2,1,[0.01]); 
+end
+
 imagesc(noccImgL);
 colormap("gray");
 set(gca,'xtick',[]);
@@ -75,11 +88,15 @@ set(gca,'xticklabel',[]);
 set(gca,'ytick',[]);
 set(gca,'yticklabel',[]);
 axis image;
-ylabel("(Not Occluded)",'FontSize',16,'FontWeight','bold','Color','r');
-title("LEFT",'FontSize',16,'FontWeight','bold','Color','r');
+ylabel("(Not Occluded)",'FontSize',30,'FontWeight','bold','Color','r');
+title("LEFT",'FontSize',30,'FontWeight','bold','Color','r');
 
+if tL==1
 nexttile
-%subplot(2,2,1);
+else
+subplot(2,2,2);
+%subplot_tight(2,2,2,[0.01]);
+end
 imagesc(noccImgR);
 colormap("gray");
 set(gca,'xtick',[]);
@@ -87,9 +104,14 @@ set(gca,'xticklabel',[]);
 set(gca,'ytick',[]);
 set(gca,'yticklabel',[]);
 axis image;
-title("RIGHT",'FontSize',16,'FontWeight','bold','Color','r');
+title("RIGHT",'FontSize',30,'FontWeight','bold','Color','r');
 
+if tL==1
 nexttile
+else
+subplot(2,2,3);
+%subplot_tight(2,2,3,[0.01]);
+end
 %subplot(2,2,4);
 imagesc(occImgL);
 colormap("gray");
@@ -97,10 +119,15 @@ set(gca,'xtick',[]);
 set(gca,'xticklabel',[]);
 set(gca,'ytick',[]);
 set(gca,'yticklabel',[]);
-ylabel("(Occluded)",'FontSize',16,'FontWeight','bold','Color','r');
+ylabel("(Occluded)",'FontSize',30,'FontWeight','bold','Color','r');
 axis image;
 
+if tL==1
 nexttile
+else
+subplot(2,2,4);
+%subplot_tight(2,2,4,[0.01]);
+end
 %subplot(2,2,3);
 imagesc(occImgR);
 colormap("gray");
@@ -109,6 +136,11 @@ set(gca,'xticklabel',[]);
 set(gca,'ytick',[]);
 set(gca,'yticklabel',[]);
 axis image;
+
+if tL==0
+sgt = sgtitle(panelTitle,'Color','red','FontWeight','bold');
+sgt.FontSize = 35;
+end
 hold off;
 
 %% Convert figure to image

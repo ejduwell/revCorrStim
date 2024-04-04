@@ -753,7 +753,7 @@ try
 
 
  %% Practice Instructions Sequence..
-    
+    %EJD TEMP COMMENT..
     revCorrInstructions_v1(window,screenrect,intro_txtHeaderSize,intro_txtSize,scrn_top,scrn_bot,scrn_1percY,scrn_1percX,scrn_left,scrn_right,black,gray,whichVersion);
 
     %Start KbQueue
@@ -823,7 +823,7 @@ try
     Screen('TextSize',window, intro_txtSize);
     speech1 = ['You will first complete a short block of X trials so that you can practice the task. \n' ...
         'During the practice block, you will get feedback on whether you are responding correctly. \n' ...
-        'A ‘$’ will briefly appear when you respond correctly. \n\n\n' ...
+        'A "$" will briefly appear when you respond correctly. \n\n\n' ...
         'Then you will complete X X-minute blocks. You will not get feedback during these blocks. \n'...
         'Between these longer blocks, you will be given a X-second break, \n '...
         'and then the screen will prompt you to begin the next block by hitting the ENTER key. \n'... 
@@ -851,7 +851,7 @@ try
 
         [keyIsDown, firstPress, ~, ~, ~] = KbQueueCheck();
         if keyIsDown == 1
-            if KbName(firstPress) == 'Return'
+            if string(KbName(firstPress)) == "Return"
                 enter_pressed = 1;
             end
         end
@@ -2493,8 +2493,10 @@ NoiseRanIdxOrder= randperm(size(noise_arrayIdx, 1));
     % A) Create Page
     Screen('FillRect', window, gray); % gray out window
     % add formatted text..
-    speech1 = ['Now that you''ve completed the practice trials, let''s begin the actual experiment. Move your mouse cursor off the screen and\n\n' ...
-        'position your fingers over the "Z" and "M" keys.\n\n\n\n' ...
+    speech1 = ['Now that you''ve completed the practice trials, \n'...
+        'let''s begin the actual experiment. \n\n'...
+        'Move your mouse cursor off the screen \n' ...
+        'and position your fingers over the "Z" and "M" keys.\n\n\n\n' ...
         'When you''re ready, press ENTER/RETURN.'];
     Screen('TextSize',window, intro_txtSize);
     DrawFormattedText(window, speech1,'center','center',black);
@@ -2520,7 +2522,7 @@ NoiseRanIdxOrder= randperm(size(noise_arrayIdx, 1));
 
         [keyIsDown, firstPress, ~, ~, ~] = KbQueueCheck();
         if keyIsDown == 1
-            if KbName(firstPress) == 'Return'
+            if string(KbName(firstPress)) == "Return"
                 enter_pressed = 1;
             end
         end

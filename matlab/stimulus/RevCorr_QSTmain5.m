@@ -56,6 +56,12 @@ main_dir = pwd;
 cd(mlab_dir)
 % -------------------------------------
 
+% get the matlab release runnung on this machine
+[mlb_v, mlb_d] = version;
+expression = '(R[0-9][0-9][0-9][0-9].)';
+mlb_version = regexp(mlb_v,expression,'match');
+mlb_year=str2double(mlb_version{1,1}(2:end-1));
+
 % Serial Testing/Development Params..
 serial_test = 0;
 
@@ -219,7 +225,7 @@ end
 if T==1 && L==0 && C==0
 stimVer="tex";
 % TEXTURE ONLY
-image_dir = strcat(main_dir,"/images/test4_TexOnly-28-Feb-2024-19-00-46"); % generalized
+image_dir = strcat(main_dir,"/images/test5_TexOnly-12-Mar-2024-18-48-17"); % generalized
 qstParStr="texDiff"; % diff between texture resolution1/texture resolution2
 parTagz = ["Tr1","Tr2"];
 obj1Par="Tr1";
@@ -574,6 +580,13 @@ try
         Screen('Preference','VisualDebugLevel', 0);
         Screen('Preference','SuppressAllWarnings', 1);
         %oldEnableFlag=Screen('Preference', 'EmulateOldPTB'); %EJD added to try to deal with compatability issues with old psychtoolbox...   
+    elseif strcmp(comp.machineName,'psy-agreenb-r7')
+        directory = figs_dir_base;
+        kboard = GetKeyboardIndices();    
+        room = 'TBRC_C2026_1'; % subject testing room 2026, machine closest to door..
+        Screen('Preference', 'SkipSyncTests', 1); %EJD: added to skip sync tests
+        Screen('Preference','VisualDebugLevel', 0);
+        Screen('Preference','SuppressAllWarnings', 1);  
     else
         
        fprintf('******************************\nYou''re not on a known machine!\n******************************\n');
@@ -703,6 +716,7 @@ try
     if run_pracTrls == "y"
     % run the practice session:
     %[tdf_out_practice] = RevCorrQuest5_int_v3_practice(room,kboard,quests_ntrials_practice,link,1,window,image_dir,db_mode,db_mode_screen,nr_params, imtag, pthrds,n_int,qst_startParams,t_prob_practice,maxmin,maxmin_seg,pract_FM_im,main_dir,olCon,parTagz,obj1Par,obj2Par,qstParStr,noise_dir,nWt,nTag);
+
     [~,~,~,~,~, ~,tdf_out_practice] = RevCorrQuest5_int_v5_practice(room,kboard,quests_ntrials_practice,link,1,window,image_dir,db_mode,db_mode_screen,nr_params, imtag, pthrds,n_int,qst_startParams,t_prob,maxmin,maxmin_seg,main_dir,olCon,parTagz,obj1Par,obj2Par,qstParStr,noise_dir,nWt,nTag,out_dir);
     else
         tdf_out_practice = [];
@@ -1017,7 +1031,11 @@ try
                 if nr_opt == 1
                     % define NR psychometric function for based on the parameters
                     % optimized in function f after the fitting above..
-                    syms cf [1 1] real
+                    if mlb_year > 2021
+                        syms cf [1 1] real
+                    else
+                        syms cf real
+                    end
                     %nr_fncn_f(cf) = nr_rmax*((cf^nr_nf)/(nr_c50f^nr_nf + cf^nr_nf)) + nr_b;
                     
                     fit_t1 = double(max(solve(f2.nr_rmax*((cf^f2.nr_n)/(f2.nr_c50^f2.nr_n + cf^f2.nr_n)) + f2.nr_b == pThreshold1,cf)));
@@ -1089,7 +1107,8 @@ try
                     cd(subj)
                     cd(figs_dir)
                     cd(todays_dir)
-                    imwrite(getframe(gcf).cdata, fig_fname)
+                    frameTmp=getframe(gcf);
+                    imwrite(frameTmp.cdata, fig_fname);
                     fig_readback = imread(strcat(fig_fname));
                     cd(start_dir)
                 end
@@ -1237,7 +1256,8 @@ try
         ylim([0.5 1])
         %fig_fname = strcat(figs_dir,"_MeanStDev",".tif");
         fig_fname = strcat(join(verStrVect,"_"),"_MeanStDev",".tif");
-        imwrite(getframe(gcf).cdata, fig_fname)
+        frameTmp=getframe(gcf);
+        imwrite(frameTmp.cdata, fig_fname)
         %mean_sdfig = imread(strcat(fig_fname));
         cd(start_dir)
     end
