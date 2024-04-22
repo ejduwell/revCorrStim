@@ -13,16 +13,16 @@ function kernelNoise2File_v2()
 %     [0,0,0,0,0,6,0,0,0]...
 %     };
 
-% imgsPerKrnl_set = {...
-%     [1,1,1,1,1,1,1,0,0],...
-%     };
-
 imgsPerKrnl_set = {...
-    [1,2,3,4,5,6,7,0,0],...
+    [1,1,1,1,1,1,1,0,0],...
     };
 
-%Repz=20000; % sets number of image reps/trials used for each pass..
-Repz=100; % sets number of image reps/trials used for each pass..
+% imgsPerKrnl_set = {...
+%     [1,2,3,4,5,6,7,0,0],...
+%     };
+
+Repz=10; % sets number of image reps/trials used for each pass..
+%Repz=100; % sets number of image reps/trials used for each pass..
 jobChunks=10; % sets the number of chunks you want to break the job 
               % (total reps) into..
 
@@ -34,7 +34,7 @@ gSmthK2sz=0.5; % size of gaussian smoothing kernel for final image..
 BI_WT=0.35;
 N_WT=1-BI_WT;
 nReps=Repz/jobChunks; % number of noise image copies/reps you want to run per pass..
-nWorkers=5; % number of cpu nodes used in the parallelized portions..
+nWorkers=8; % number of cpu nodes used in the parallelized portions..
 
 %Specify desired size?
 selectSize=1; % if 1, this means that we will use/resize the input image the selected size below
@@ -42,10 +42,17 @@ desiredSize=[512,512]; % (MUST BE SQUARE IMAGE AND DIMZ MUST BE POWER OF 2)
 
 %LumOnly
 %krnlNzBI="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test4_LumOnly-05-Mar-2024-10-12-48/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png";
+
 %TexOnly
 %krnlNzBI="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test5_TexOnly-12-Mar-2024-18-48-17/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_1.075_Tr2_0.93023_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png";
+%krnlNzBI="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png";
+
+krnlNzBI="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png";
+
+%krnlNzBI="/home/eduwell/SynologyDrive/SNAP/projects/imgKernelNoise/baseImgs/baboon512.png";
+
 %CRonly w/Lum
-krnlNzBI="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test5_CROnly-11-Mar-2024-14-16-09/nocc/L/BaseIm_occ_1_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_2.png";
+%krnlNzBI="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test5_CROnly-11-Mar-2024-14-16-09/nocc/L/BaseIm_occ_1_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_2.png";
 
 % Out Directory Base (parent directory where you want your output dirs
 % created)
@@ -56,7 +63,8 @@ outDirMain="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/noise";
 %baseOutDirName="texOnlyBI_20000frms_krnlNz_imzPerKrnl";
 %baseOutDirName="crOnlyBI_20000frms_krnlNz_imzPerKrnl";
 
-baseOutDirName="crOnlyBI_100frms_krnlNz_imzPerKrnl";
+%baseOutDirName="texOnlyBI_v2_20000frms_krnlNz_imzPerKrnl";
+baseOutDirName="baboonTest";
 
 %parProfile='Threads';
 %parProfile='Processes';
