@@ -1,4 +1,4 @@
-function revCorrInstructions_v1(window,screenrect,intro_txtHeaderSize,intro_txtSize,scrn_top,scrn_bot,scrn_1percY,scrn_1percX,scrn_left,scrn_right,black,gray,whichVersion)
+function revCorrInstructions_v1(window,screenrect,intro_txtHeaderSize,intro_txtSize,scrn_top,scrn_bot,scrn_1percY,scrn_1percX,scrn_left,scrn_right,black,gray,whichVersion,noizType)
 Screen('Preference', 'SkipSyncTests', 1); %EJD: added to skip sync tests
 Screen('Preference','SuppressAllWarnings', 1);
 
@@ -8,7 +8,7 @@ Screen('Preference','SuppressAllWarnings', 1);
 % get matlab directory path by "which-ing" for this file..
 % NOTE: key assumption: there is only one copy of this on the path.. (that
 % should always be the case to avoid other conflicts..)
-mlab_dir = fileparts(which('RevCorr_QSTmain5.m'));
+mlab_dir = fileparts(which('RevCorr_QSTmain7.m'));
 
 cd(mlab_dir);
 % cd 2 directory to enter the main dir..
@@ -21,19 +21,22 @@ main_dir = pwd;
 cd(mlab_dir)
 % -------------------------------------
 
+printImz=1; %if 1, will save images of instruction pages..
+imOutDir=strcat(main_dir,"/matlab/stimulus/instructions");
 %% Generate the example images
 % whichVersion="tex"; % 'lum', 'tex', or 'cr'
 
+if noizType=="krnlNz"
 if whichVersion=="lum"
 
     % for lum
     parzIn=struct; % initialize
-    parzIn.occImgR=imread(strcat(main_dir,"/images/test3_LumOnly-26-Feb-2024-19-00-35/occ/R/BaseIm_occ_0_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0clovers_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
-    parzIn.occImgL=imread(strcat(main_dir,"/images/test3_LumOnly-26-Feb-2024-19-00-35/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0clovers_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
-    parzIn.noccImgR=imread(strcat(main_dir,"/images/test3_LumOnly-26-Feb-2024-19-00-35/nocc/R/BaseIm_occ_1_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0clovers_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
-    parzIn.noccImgL=imread(strcat(main_dir,"/images/test3_LumOnly-26-Feb-2024-19-00-35/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0clovers_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.occImgR=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/occ/R/BaseIm_occ_0_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.occImgL=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgR=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/nocc/R/BaseIm_occ_1_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgL=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.fix_im=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/fixation.png"));
     parzIn.noiseDir=strcat(main_dir,"/noise/lumOnlyBI_20000frms_krnlNz_imzPerKrnl_111111100");
-    parzIn.fix_im=imread(strcat(main_dir,"/images/test3_LumOnly-26-Feb-2024-19-00-35/fixation.png"));
     parzIn.nWt=0.5;
 
 end
@@ -42,12 +45,12 @@ if whichVersion=="cr"
 
     % for cr
     parzIn=struct; % initialize
-    parzIn.occImgR=imread(strcat(main_dir,"/images/test3_CROnlyWlum51-26-Feb-2024-18-52-21/occ/R/BaseIm_occ_0_ori_m__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3214_T_0clovers_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
-    parzIn.occImgL=imread(strcat(main_dir,"/images/test3_CROnlyWlum51-26-Feb-2024-18-52-21/occ/L/BaseIm_occ_0_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3214_T_0clovers_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
-    parzIn.noccImgR=imread(strcat(main_dir,"/images/test3_CROnlyWlum51-26-Feb-2024-18-52-21/nocc/R/BaseIm_occ_1_ori_m__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3214_T_0clovers_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
-    parzIn.noccImgL=imread(strcat(main_dir,"/images/test3_CROnlyWlum51-26-Feb-2024-18-52-21/nocc/L/BaseIm_occ_1_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3214_T_0clovers_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.occImgR=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/occ/R/BaseIm_occ_0_ori_m__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.occImgL=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/occ/L/BaseIm_occ_0_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgR=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/nocc/R/BaseIm_occ_1_ori_m__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgL=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/nocc/L/BaseIm_occ_1_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.fix_im=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/fixation.png"));
     parzIn.noiseDir=strcat(main_dir,"/noise/crOnlyBI_20000frms_krnlNz_imzPerKrnl_111111100");
-    parzIn.fix_im=imread(strcat(main_dir,"/images/test3_CROnlyWlum51-26-Feb-2024-18-52-21/fixation.png"));
     parzIn.nWt=0.5;
 
 end
@@ -56,15 +59,60 @@ if whichVersion=="tex"
 
     % for tex
     parzIn=struct; % initialize
-    parzIn.occImgR=imread(strcat(main_dir,"images/test5_TexOnly-12-Mar-2024-18-48-17/occ/R/BaseIm_occ_0_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_1.3_Tr2_0.76923_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
-    parzIn.occImgL=imread(strcat(main_dir,"/images/test5_TexOnly-12-Mar-2024-18-48-17/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_1.3_Tr2_0.76923_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
-    parzIn.noccImgR=imread(strcat(main_dir,"/images/test5_TexOnly-12-Mar-2024-18-48-17/nocc/R/BaseIm_occ_1_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_1.3_Tr2_0.76923_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
-    parzIn.noccImgL=imread(strcat(main_dir,"/images/test5_TexOnly-12-Mar-2024-18-48-17/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_1.3_Tr2_0.76923_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
-    parzIn.noiseDir=strcat(main_dir,"/noise/texOnly4BI_krnlNz_imzPerKrnl_111111100");
-    parzIn.fix_im=imread(strcat(main_dir,"/images/test5_TexOnly-12-Mar-2024-18-48-17/fixation.png"));
+    parzIn.occImgR=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/occ/R/BaseIm_occ_0_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.occImgL=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgR=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/R/BaseIm_occ_1_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgL=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.fix_im=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/fixation.png"));
+    parzIn.noiseDir=strcat(main_dir,"/noise/texOnlyBI_v2_20000frms_krnlNz_imzPerKrnl_111111100");   
     parzIn.nWt=0.5;
 
 end
+end
+
+if noizType=="white"
+if whichVersion=="lum"
+
+    % for lum
+    parzIn=struct; % initialize
+    parzIn.occImgR=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/occ/R/BaseIm_occ_0_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.occImgL=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgR=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/nocc/R/BaseIm_occ_1_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgL=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.fix_im=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/fixation.png"));
+    parzIn.noiseDir=strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl1");
+    parzIn.nWt=0.5;
+
+end
+
+if whichVersion=="cr"
+
+    % for cr
+    parzIn=struct; % initialize
+    parzIn.occImgR=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/occ/R/BaseIm_occ_0_ori_m__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.occImgL=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/occ/L/BaseIm_occ_0_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgR=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/nocc/R/BaseIm_occ_1_ori_m__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgL=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/nocc/L/BaseIm_occ_1_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.fix_im=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/fixation.png"));
+    parzIn.noiseDir=strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl2");
+    parzIn.nWt=0.5;
+
+end
+
+if whichVersion=="tex"
+    % for tex
+    parzIn=struct; % initialize
+    parzIn.occImgR=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/occ/R/BaseIm_occ_0_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.occImgL=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgR=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/R/BaseIm_occ_1_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.noccImgL=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+    parzIn.fix_im=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/fixation.png"));
+    parzIn.noiseDir=strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl3");   
+    parzIn.nWt=0.5;
+
+end
+end
+
 
 % Without Noise
 parzIn.useNoise=0;
@@ -74,6 +122,26 @@ parzIn.useNoise=1;
 exmplImgs_wNoise = revCorrMakeExmplImgs(parzIn);
 % Combination
 comboImg=horzcat(exmplImgs,exmplImgs_wNoise);
+
+if printImz==1
+if noizType=="krnlNz"
+    % Capture window as image..
+    %img_snap =Screen('GetImage', window); %capture image of backwindow as it stands now...
+    out_name1 = strcat(imOutDir,"/","instrxns_","exmplImz","_",whichVersion,"_wKrnlNoise.png");
+    out_name2 = strcat(imOutDir,"/","instrxns_","exmplImz","_",whichVersion,".png");
+    imwrite(exmplImgs_wNoise,out_name1,"png");
+    imwrite(exmplImgs,out_name2,"png");
+end
+if noizType=="white"
+    % Capture window as image..
+    %img_snap =Screen('GetImage', window); %capture image of backwindow as it stands now...
+    out_name1 = strcat(imOutDir,"/","instrxns_","exmplImz","_",whichVersion,"_wWhiteNoise.png");
+    out_name2 = strcat(imOutDir,"/","instrxns_","exmplImz","_",whichVersion,".png");
+    imwrite(exmplImgs_wNoise,out_name1,"png");
+    imwrite(exmplImgs,out_name2,"png");
+end
+end
+
 
 %% Build instructions page
     %Start KbQueue
@@ -106,7 +174,9 @@ comboImg=horzcat(exmplImgs,exmplImgs_wNoise);
     
     % draw the images
     %comboImg = imresize(comboImg,0.5,"nearest");
-    exmplImgs_wNoise=imresize(exmplImgs_wNoise,0.45,"nearest");
+    sclFctr=0.6/14.4;
+    ImgSclFctr=sclFctr*scrn_1percY;
+    exmplImgs_wNoise=imresize(exmplImgs_wNoise,ImgSclFctr,"nearest");
     %ejd debug
     %sca;
     %pause="";
@@ -134,6 +204,7 @@ comboImg=horzcat(exmplImgs,exmplImgs_wNoise);
     swtch = 0;
     respns = "";
     %t_trial0 = GetSecs;
+
     % While stimulus is on the screen and no response
     while enter_pressed == 0 %trialResp == 0  
 
@@ -166,7 +237,7 @@ comboImg=horzcat(exmplImgs,exmplImgs_wNoise);
     % add formatted text..
     txtDistFrmTop4=50*scrn_1percY; % specify distance of text from top as percent of screen dimension..
     Screen('TextSize',window, intro_txtSize);
-    speech1 = ['Once you respond (or after X seconds, if you don''t respond), the experiment will go on to the next trial. \n' ...
+    speech1 = ['Once you respond (or after 2 seconds if you don''t respond), the experiment will go on to the next trial. \n' ...
         'Try to identify the target as quickly and accurately as possible. \n\n' ...
         'Press ENTER/RETURN to Continue...'];
     DrawFormattedText(window, speech1,'center', (scrn_top+txtDistFrmTop4), black);
@@ -183,6 +254,7 @@ comboImg=horzcat(exmplImgs,exmplImgs_wNoise);
         % Draw stimulus
         if swtch == 0
             Screen('Flip', window);% show linking display
+
             t_disp = GetSecs; % record time display came up..
             %start listening for responses
             KbQueueStart();

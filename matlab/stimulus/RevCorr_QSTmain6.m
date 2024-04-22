@@ -40,7 +40,7 @@ Screen('Preference','SuppressAllWarnings', 1);
 % get matlab directory path by "which-ing" for this file..
 % NOTE: key assumption: there is only one copy of this on the path.. (that
 % should always be the case to avoid other conflicts..)
-mlab_dir = fileparts(which('RevCorr_QSTmain5.m'));
+mlab_dir = fileparts(which('RevCorr_QSTmain6.m'));
 
 diaryfile=strcat(mlab_dir,"/commandWindowDiary");
 diary(diaryfile);
@@ -67,7 +67,7 @@ serial_test = 0;
 
 %quest_testreps = 3;
 quest_testreps_init = 1; % number of reps for the initial/first quest block
-quest_testreps_reg = 1; % number of reps for the rest of the quest blocks (non-first-blocks)
+quest_testreps_reg = 3; % number of reps for the rest of the quest blocks (non-first-blocks)
 
 
 test_initials = "XXX"; %phoney initials for testing...
@@ -145,6 +145,21 @@ fprintf('C = %d\n', C);
 disp(" ");
 %==========================================================================
 
+% Ask which noise they want..
+whichNoise = input('Which noise do you want to use? Type "white" for white noise or "kernel" for kernel noise. Then press return.  ','s');
+% Don't let them pass until they enter either a 'white' or an 'kernel'
+while (whichNoise ~= "white") && (whichNoise ~= "kernel")
+whichNoise = input('Input not recognized. Type "white" for white noise or "kernel" for kernel noise. Then press return.  ','s');
+end
+disp(" ");
+if whichNoise=="krnlNz"
+noizType="krnlNz";
+end
+if whichNoise=="white"
+noizType="white";
+end
+
+
 % Ask if they want to run the practice trials..
 run_pracTrls = input('Do you want to run practice trials before the experiment? Press "y" for yes or "n" for no. Then press return.  ','s');
 % Don't let them pass until they enter either a 'y' or an 'n'
@@ -152,7 +167,6 @@ while (run_pracTrls ~= "y") && (run_pracTrls ~= "n")
 run_pracTrls = input('Input not recognized. Please press either "y" for yes or "n" for no. Then press return.  ','s');
 end
 disp(" ");
-
 
 db_mode = 1;
 db_mode_screen = 1;
@@ -180,12 +194,29 @@ pract_FM_im =strcat(main_dir,"/images/morph_levels.png"); % full path to facemor
 imtag = ".png"; % unique tag in filename iding the images you want...
 
 % Path to Noise Directory..
-noizType="krnlNz";
 %noizType="krnlNz";
+%noizType="krnlNz";
+
+% if noizType=="white"
+% noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_60000frms");
+% nTag=".png";
+% end
+
 if noizType=="white"
-noise_dir = strcat(main_dir,"/noise/whiteNoise512-512");
-nTag=".jpg";
+    if L==1 && T ==0 && C==0
+        noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl1");
+        nTag=".png";
+    end
+    if T==1 && L==0 && L==0
+        noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl2");
+        nTag=".png";
+    end
+    if C==1 && L==0 && T==0
+        noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl3");
+        nTag=".png";
+    end
 end
+
 if noizType=="krnlNz"
     if L==1 && T ==0 && C==0
         noise_dir = strcat(main_dir,"/noise/lumOnlyBI_20000frms_krnlNz_imzPerKrnl_111111100");
@@ -275,7 +306,7 @@ n_int = 3; % specify the number of interleved quests you want.. if 1,
 %quests_ntrials = 52; % specify number of trials in each quest test rep
 quests_ntrials_init = 50; % specify number of trials in each quest test rep on the first quest block
 
-quests_ntrials_reg = 125; % specify number of trials in each quest test rep  on the quest block after the first block
+quests_ntrials_reg = 100; % specify number of trials in each quest test rep  on the quest block after the first block
 
 quests_ntrials_practice = 6; % specify number of trials in each quest test rep
 
@@ -811,18 +842,31 @@ try
 
                 
                 paramq1 = params_out{1,1};
+                paramqz=paramq1;
                 if n_int>1
                     paramq2 = params_out{1,2};
+                    paramqz=vertcat(paramqz,paramq2);
                     if n_int>2
                         paramq3 = params_out{1,3};
+                        paramqz=vertcat(paramqz,paramq3);
                         if n_int>3
                             paramq4 = params_out{1,4};
+                            paramqz=vertcat(paramqz,paramq4);
                             if n_int>4
                                 paramq5 = params_out{1,5};
+                                paramqz=vertcat(paramqz,paramq5);
                             end
                         end
                     end
                 end 
+                
+                % Combine parampz in proper order by interleaving by
+                % trial..
+                paramqzInt=[];%initialize
+                for yy=1:size(paramqz,2)
+                    trialSetTmp=paramqz(1:end,yy)';
+                    paramqzInt=horzcat(paramqzInt,trialSetTmp);
+                end
                 
                 % Extract the raw response data from the interleaved quests
                 % and fit naka rushton function to the raw data.. 
@@ -830,7 +874,10 @@ try
                 % from the fit NR model 
                 q_list = who("q*_*_qst");
                 for ii = 1:length(q_list)
-                    cmd_str_qparam = strcat("q_param = ", "paramq",num2str(ii),"(1:(",q_list{ii},".trialCount));");
+                    
+%                     cmd_str_qparam = strcat("q_param = ", "paramq",num2str(ii),"(1:(",q_list{ii},".trialCount));");
+%                     cmd_str_qresp = strcat("q_resp = ", q_list{ii},".response(1:(",q_list{ii},".trialCount));");
+                    cmd_str_qparam = strcat("q_param = ", "paramqzInt","(1:(",q_list{ii},".trialCount));");
                     cmd_str_qresp = strcat("q_resp = ", q_list{ii},".response(1:(",q_list{ii},".trialCount));");
                     eval(cmd_str_qparam);
                     eval(cmd_str_qresp);
