@@ -70,7 +70,7 @@ Base images are pre-generated and saved in an output subdirectory located within
 You'll notice that base images have obnoxiously long names. This is because they are named systematically such that all pertinent parameter values are encoded in the file name.
 These parameters are then read out when they are loaded by the stimulus presentation program.
 
-Similarly, noise images are also pregenerated and saved in a subdirectory within /revCorrStim/noise. 
+Similarly, noise images are also pre-generated and saved in a subdirectory within /revCorrStim/noise. 
 
 This approach allows users to create multiple different versions of an experiment with various base image / noise combinations, but run them all with the same centralized stimulus presentation program and analyze the output data with the same analysis software.
 
