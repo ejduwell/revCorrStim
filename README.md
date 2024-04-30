@@ -75,7 +75,7 @@ This approach allows users to create multiple different versions of an experimen
 
 <p align="center">
   <div style="text-align: center;">
-  **NOTE: Consequently, before you can run the stimulus, you will first need to:
+  **NOTE: Consequently, before you can run the stimulus your first time, you will first need to:
     
   1) generate base & noise images
   2) update a number of parameters to point the stimulus presentation program to these images. 
