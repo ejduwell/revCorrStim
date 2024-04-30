@@ -122,7 +122,7 @@ Follow the instructions below:
     itrParsCom = combvec(itrPars{1},itrPars{2},itrPars{3},itrPars{4},itrPars{5}); % This builds a matrix of all the combos of pars in vectors listed     in itrPars.
     end
    ```
-   - The current setup specifies (as noted in the comment header), a configuration that will generate images where lum1 and lum2 vary about the background luminance of 127.5 while maintaining a mean luminance of 127.5. We will not adjust the values in this example, but for reference:
+   - The current setup specifies (as noted in the comment header), a configuration that will generate images where lum1 and lum2 vary about the background luminance of 127.5 while maintaining a mean luminance of 127.5. We will not adjust the values in this example, but for reference here is what each of the parameters do:
        - itrPars -- specfies the set of parameter vectors (defined in earlier parameter sections) whose values will be included in generating the "set of all possible value combinations"
        - itParNamz -- specifies a set of 'name tag' strings corresponding to the respective parameters in itrPars. (These strings are used in the systematic file naming)
        - Eqlz -- specifies a list of strings containing equality statements. These logical statements basically allow you to specify specific conditions/cases you want included in the output image set. In this case we speficied that we only want conditions where lum1 and lum2 are different values/not equal ("lum1~=lum2") and conditions where the mean of lum1 and lum2 is equal to 127.5 ("((lum1+lum2)/2)==127.5"). These logical statements are used in a subsequent logical indexing step to constrain the set of all possible parameter combos to the specific subset which meet all the specified conditions.
@@ -131,7 +131,7 @@ Follow the instructions below:
 
        - itrParsCom -- stores thes set of all possible combinations of the parameter values for the parameters in itrPars. This is computed using the "combvec" command. If you make a new configuration with a different number of vectors in itrPars, you will need to add or remove values such that combvec(itrPars{1},itrPars{2},itrPars{3}, ... itrPars{n}) mirrors the number of parameter vectors (n) in itrPars.
      
-
+- You'll notice that the other configurations in the '%% Parameters to Recursively Iterate Through Possible Combinations' subsection all define the same 4 parameters explained above. All that changes in each different configuration is the list of particular parameter vectors included in the itrPars set, the corresponding strings in itParNamz and the equality conditions listed. Once you understand how to run one configuration, you should be able to understand the rest / make your own new configurations if you wish.
 
 ## Noise Image Generation
 
