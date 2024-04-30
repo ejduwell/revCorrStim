@@ -371,6 +371,101 @@ As of now, there are still a number of "user specific" parameters that will need
 
       This will need to be done for the texture (tex), common region (cr), and luminance (lum) versions along with the kernel and white noise directories.
 
+2) Similar hard-coded path adjustments need to be made in RevCorr_QSTmain7.m
+
+   - Hard-coded string portions of "noise_dir" and "image_dir" parameters defined in the section below need to be adjusted to match the paths on your machine:
+  
+   ```
+   if noizType=="white"
+    if L==1 && T ==0 && C==0
+        noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl1");
+        nTag=".png";
+    end
+    if T==1 && L==0 && L==0
+        noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl2");
+        nTag=".png";
+    end
+    if C==1 && L==0 && T==0
+        noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl3");
+        nTag=".png";
+    end
+    end
+    
+    if noizType=="krnlNz"
+        if L==1 && T ==0 && C==0
+            noise_dir = strcat(main_dir,"/noise/lumOnlyBI_20000frms_krnlNz_imzPerKrnl_111111100");
+            nTag=".png";
+        end
+        if T==1 && L==0 && L==0
+            noise_dir = strcat(main_dir,"/noise/texOnlyBI_v2_20000frms_krnlNz_imzPerKrnl_111111100");
+            nTag=".png";
+        end
+        if C==1 && L==0 && T==0
+            noise_dir = strcat(main_dir,"/noise/crOnlyBI_20000frms_krnlNz_imzPerKrnl_111111100");
+            nTag=".png";
+        end
+    end
+    
+    
+    %                      QUEST OPTIMIZED PARAMETER:
+    %##########################################################################
+    
+    %  ---------  Difference Parameter Between-Objects Scenarios:  ---------
+    % -------------------------------------------------------------------------
+    
+    if L==1 && T ==0 && C==0
+        stimVer="lum";
+        % LUMINANCE ONLY
+        image_dir = strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48");
+        qstParStr="lumDiff"; % diff between lum1/lum2
+        parTagz = ["lum1","lum2"];
+        obj1Par="lum1";
+        obj2Par="lum2";
+        nWt=0.75;
+    end
+    
+    if T==1 && L==0 && C==0
+        stimVer="tex";
+        % TEXTURE ONLY
+        image_dir = strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14"); % generalized
+        qstParStr="texDiff"; % diff between texture resolution1/texture resolution2
+        parTagz = ["Tr1","Tr2"];
+        obj1Par="Tr1";
+        obj2Par="Tr2";
+        nWt=0.75;
+    end
+    % -------------------------------------------------------------------------
+    
+    %   ---------  Individual Parameter Single-Object Scenarios:  ---------
+    if C==1 && L==0 && T==0
+        stimVer="cr";
+        % COMMON REGION ONLY
+        image_dir = strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09"); % generalized
+        qstParStr="CRpl"; % common region boundary luminance
+        parTagz = ["CRpl"];
+        obj1Par="CRpl";
+        obj2Par="CRpl";
+        nWt=0.75;
+    end
+    % -------------------------------------------------------------------------
+   ```
+
+   - under the section that begins with:
+   ```
+   %%% get some info. on computer running this script
+   ```
+
+   You'll need to add a conditional statement for your local machine.. something like:
+   ```
+    elseif strcmp(comp.machineName,'YOUR_MACHINE_NAME')
+          directory = figs_dir_base;
+          kboard = GetKeyboardIndices();
+          room = 'ROOMNAME'; % subject testing room 2026, machine closest to door..
+          Screen('Preference', 'SkipSyncTests', 1); %EJD: added to skip sync tests
+          Screen('Preference','VisualDebugLevel', 0);
+          Screen('Preference','SuppressAllWarnings', 1);
+   ```
+
 ## CI / SI Generation
 
 The Matlab code for computing CIs/SIs is located in the '/revCorrStim/matlab/CIGen' subdirectory.
