@@ -57,12 +57,24 @@
 
     
 # Usage:
+
 This section explains how to use various aspects of the revCorrStim repository. Namely how to:
 - Generate Base Images ( [jump to section](https://github.com/ejduwell/revCorrStim/tree/main?tab=readme-ov-file#base-image-generation) )
 - Generate Noise Images ( [jump to section](https://github.com/ejduwell/revCorrStim/tree/main?tab=readme-ov-file#noise-image-generation) )
 - Run the Stimulus ( [jump to section](https://github.com/ejduwell/revCorrStim/tree/main?tab=readme-ov-file#running-an-experiment) )
 - Generate CIs/SIs ( [jump to section](https://github.com/ejduwell/revCorrStim/tree/main?tab=readme-ov-file#ci--si-generation) )
+
+<p align="center">
+  <div style="text-align: center;">
+  ** NOTE: before you can run the stimulus, you will first need to:
+    
+  1) generate base & noise images
+  2) update a number of parameters to point the stimulus presentation program to these images. 
   
+  Also, perhaps it goes without saying, but before you can generate CIs/SIs, you must first run an experiment and have data to analyze..
+  </div>
+</p>
+
 ## Base Image Generation
 
 ## Noise Image Generation
