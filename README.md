@@ -92,6 +92,44 @@ The Matlab code for generating base images is located in the '/revCorrStim/matla
 
 The most recent copy of the 'main function' for generating base images is GenRevCorrBaseImsRF_v4.m
 
+To generate base images you will need to update a few parameters in GenRevCorrBaseImsRF_v4.m and then run it.
+
+Follow the instructions below:
+1) open GenRevCorrBaseImsRF_v4.m in your Matlab editor window.
+2) scroll down to the '%% Parameters' section
+3) under the '%% System Parameters' subsection, change the 'outdir' to the name you want to assign to the output parent directory.
+4) select which grouping parameters you want to use:
+     - revCorrStim currently supports 3 different "object grouping parameters" out of the box (common region, texture, and luminance)
+     - each of these hase their own parameter subsection ('%% Common Region Parameters', '%% Texture Parameters', and '%% Luminance Parameters')
+     - to turn these on/off set the first parameter (T, CR, or L respectively) equal to either 1 or 0 (on or off).
+     - You can, in fact, select any combination of these that you want. However, for the sake of simplicity, lets stick to luminance only for this example (set L=1, T=0, and CR=0)
+5) set the range of possibile parameter values for object 1 and object 2:
+     - In this case, because we're just manipulating luminance, that means we will be adjusting 'lum1 and lum2' (in '%% Luminance Parameters' section)
+     - Adjust the linspace command to specify the vectors of possible values for each. For example:
+       ```
+       lum1 = linspace(0,127.5,127);  
+       lum2 = linspace(127.5,255,127); % num between 0-255 150
+       ```
+       This will make lum1 range from 0-127.5 in 127 steps and lum2 range from 127.5-255 in 127 steps.
+6) Finally set up the parameters whose value vectors you want included in the set 'mega set' of all possible value combinations.
+   - this is done in the '%% Parameters to Recursively Iterate Through Possible Combinations' subsection
+   - Scroll down to the "if statement" matching your use case of interest. In our case, for this example its:
+   ```
+   % LUM ONLY NARROW RANGE, MEAN OBJECT LUM == BACKGROUND
+    if L==1 && T==0 && CR==0
+    itrPars   = {occluders,oriCon,objcon,lum1,lum2};           % list names of parameter variables you want to iterate
+    itParNamz = {"occluders","oriCon","objcon","lum1","lum2"}; % list names of parameter variables you want to iterate (in itrParz above) as strings
+    Eqlz = {"lum1~=lum2","((lum1+lum2)/2)==127.5"}; % specify equality conditions you want
+    itrParsCom = combvec(itrPars{1},itrPars{2},itrPars{3},itrPars{4},itrPars{5}); % This builds a matrix of all the combos of pars in vectors listed     in itrPars.
+    end
+   ```
+   - The current setup specifies (as noted in the comment header), a configuration that will generate images where lum1 and lum2 vary about the background luminance of 127.5 while maintaining a mean luminance of 127.5. We will not adjust the values in this example, but for reference:
+       - itrPars -- specfies the set of parameter vectors (defined in earlier parameter sections) whose values will be included in generating the "set of all possible value combinations"
+       - itParNamz -- specifies a set of 'name tag' strings corresponding to the respective parameters in itrPars. (These strings are used in the systematic file naming)
+       - Eqlz -- specifies a list of strings containing equality statements. These logical statements basically allow you to specify specific conditions/cases you want included in the output image set. In this case we speficied that we only want conditions where lum1 and lum2 are different values/not equal ("lum1~=lum2") and conditions where the mean of lum1 and lum2 is equal to 127.5 ("((lum1+lum2)/2)==127.5"). These logical statements are used in a subsequent logical indexing step to constrain the set of all possible parameter combos to the specific subset which meet all the specified conditions.
+         
+         NOTE: think carefully when setting this parameter in other scenarios. Without proper constraints, the number of possible image combos can quickly balloon into an enormous, unworkable number of images, take a huge amount of time to generate, and lots of disk space. However if used judicioulsy/creatively this strategy can allow you to quickly and intuitively create sets of images with any imaginable parameter combos
+     
 
 
 ## Noise Image Generation
