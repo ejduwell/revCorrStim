@@ -16,7 +16,7 @@ RevCorrStim is a repository of Matlab code for optimizing and running reverse co
 
   1) Generating base images
   2) Generating noise images
-  3) Stimulus presentation / task design.
-  4) Analysis software for generating classification and significance images (CIs and SIs).
+  3) Stimulus presentation / task design
+  4) Analysis software for generating classification and significance images (CIs and SIs)
   </div>
 </p>
