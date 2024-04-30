@@ -177,9 +177,13 @@ The two "main functions" of interest for generating noise are currently:
 
 Very briefly, here is how you use each:
 
-kernelNoise2File_v2.m:
-This function generates a specified number of Ethan's 'kernel noise' images in an output directory
+### kernelNoise2File_v2.m:
+
+This function generates a specified number of Ethan's 'kernel noise' images in an output directory.
+
 In short this noise is essentially a weighted combination of sub-images which are each essentially a "patchwork quilt" tiled with various sized "kernel window" samples from random locations of an input base image. These are each also flipped at random orientations (vertical,horizontal, invert, or any combo of these). The set of sub-images are combined linearly with specified weights to form the output noise image.
+
+How to use:
 1) Adjust parameters in the '%% Parameters' section
    Comment is provided next to each parameter, but we also include a list of the ones you'll likely want to adjust/know below:
    ```
@@ -187,7 +191,7 @@ In short this noise is essentially a weighted combination of sub-images which ar
         [1,1,1,1,1,1,1,0,0],... % adjusts the total number of subtile images from each respective kernel incorporated into the noise
         };
 
-    Repz=10; % sets total number of output images
+    Repz=100; % sets total number of output images
 
     jobChunks=10; % sets the number of chunks you want to break the job 
                   % (total reps) into..
@@ -226,6 +230,30 @@ In short this noise is essentially a weighted combination of sub-images which ar
       So, make sure you pick a descriptive name for baseOutDirName
       
 
+### whiteNoise2File_v1.m
+
+This function generates a specified number of white noise images in an output directory.
+
+How to use:
+1) Adjust parameters in the '%% Parameters' section
+   Comment is provided next to each parameter, but we also include a list of the ones you'll likely want to adjust/know below:
+   ```
+    Repz=100; % sets total number of output images
+    jobChunks=10; % sets the number of chunks you want to break the job 
+                  % (total reps) into..
+    
+    nReps=Repz/jobChunks; % number of noise image copies/reps you want to run per pass..
+    nWorkers=8; % number of cpu nodes used in the parallelized portions..
+    
+    %Specify desired size?
+    selectSize=1; % if 1, this means that we will use/resize the input image the selected size below
+    desiredSize=[512,512]; % (MUST BE SQUARE IMAGE AND DIMZ MUST BE POWER OF 2)
+    
+    % Out Directory Base (parent directory where you want your output dirs
+    % created)
+    outDirMain="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/noise";
+    baseOutDirName="512by512_whiteNoise_20000frms_smpl3";
+   ```
 
 ## Stimulus Presentation
 
