@@ -136,7 +136,7 @@ Follow the instructions below:
 
 The Matlab code for generating noise images is located in the 'revCorrStim/matlab/NoiseGen/imgKernelNoise' subdirectory.
 
-## Running an Experiment
+## Stimulus Presentation
 
 The Matlab code for running the stimulus is located in the '/revCorrStim/matlab/stimulus' subdirectory.
 
