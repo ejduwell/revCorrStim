@@ -147,7 +147,7 @@ Follow the instructions below:
 
 7) Finally, run GenRevCorrBaseImsRF_v4 either by hitting the green "Run" button at the top of the matlab editor window or by running 'GenRevCorrBaseImsRF_v4' in the command window.
 
-   Note: This may take some time to run. It will also take over a portion of your screen as many Psychtoolbox functions used to generate the stimuli write the stimuli on screen windows.
+   Note: This may take some time to run. It will also take over a portion of your screen as many Psychtoolbox functions used to generate the stimuli write on screen windows.
 
    When its finished there should be a new subdirectory in the revCorrStim/images folder corresponding to the name assigned to the 'outdir' parameter earlier plus a unique time/date string.
    
