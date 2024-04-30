@@ -64,6 +64,8 @@ This section explains how to use various aspects of the revCorrStim repository. 
 - Run the Stimulus ( [jump to section](https://github.com/ejduwell/revCorrStim/tree/main?tab=readme-ov-file#running-an-experiment) )
 - Generate CIs/SIs ( [jump to section](https://github.com/ejduwell/revCorrStim/tree/main?tab=readme-ov-file#ci--si-generation) )
 
+In general, each of these aspects of the revCorrStim repository were intentionally created to stand alone as seperate "modules." This approach allows users to create multiple different versions of an experiment with various base image / noise combinations, but run them all with the same centralized stimulus presentation program and analyze the output data with the same analysis software.
+
 <p align="center">
   <div style="text-align: center;">
   ** NOTE: before you can run the stimulus, you will first need to:
@@ -80,7 +82,7 @@ This section explains how to use various aspects of the revCorrStim repository. 
 The Matlab code for generating base images is located in the '/revCorrStim/matlab/BaseImgGen' subdirectory.
 
 The most recent copy of the 'main function' for generating base images is GenRevCorrBaseImsRF_v4.m
-
+and
 ## Noise Image Generation
 
 The Matlab code for generating noise images is located in the 'revCorrStim/matlab/NoiseGen/imgKernelNoise' subdirectory.
