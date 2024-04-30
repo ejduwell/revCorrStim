@@ -54,4 +54,14 @@
    % add revCorrStim to path
    addpath(genpath("full/path/to/your/revCorrStim/folder"));
    ```
+
     
+# Usage:
+
+## Base Image Generation
+
+## Noise Image Generation
+
+## Running an Experiment
+
+## CI / SI Generation
