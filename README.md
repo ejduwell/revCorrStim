@@ -131,7 +131,7 @@ Follow the instructions below:
 
        - itrParsCom -- stores thes set of all possible combinations of the parameter values for the parameters in itrPars. This is computed using the "combvec" command. If you make a new configuration with a different number of vectors in itrPars, you will need to add or remove values such that combvec(itrPars{1},itrPars{2},itrPars{3}, ... itrPars{n}) mirrors the number of parameter vectors (n) in itrPars.
      
-- You'll notice that the other configurations in the '%% Parameters to Recursively Iterate Through Possible Combinations' subsection all define the same 4 parameters explained above. All that changes in each different configuration is the list of particular parameter vectors included in the itrPars set, the corresponding strings in itParNamz and the equality conditions listed. Once you understand how to run one configuration, you should be able to understand the rest / make your own new configurations if you wish.
+- You'll notice that the other configurations in the '%% Parameters to Recursively Iterate Through Possible Combinations' subsection all define the same 4 parameters explained above under their respective "if statements". All that changes in each different configuration is the list of particular parameter vectors included in the itrPars set, the corresponding strings in itParNamz, and the equality conditions specified. Once you understand how to run one configuration, you should be able to understand the rest / make your own new configurations if you wish.
 
 ## Noise Image Generation
 
