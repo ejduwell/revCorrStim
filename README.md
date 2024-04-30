@@ -77,8 +77,18 @@ This section explains how to use various aspects of the revCorrStim repository. 
 
 ## Base Image Generation
 
+The Matlab code for generating base images is located in the '/revCorrStim/matlab/BaseImgGen' subdirectory.
+
+The most recent copy of the 'main function' for generating base images is GenRevCorrBaseImsRF_v4.m
+
 ## Noise Image Generation
+
+The Matlab code for generating noise images is located in the 'revCorrStim/matlab/NoiseGen/imgKernelNoise' subdirectory.
 
 ## Running an Experiment
 
+The Matlab code for running the stimulus is located in the '/revCorrStim/matlab/stimulus' subdirectory.
+
 ## CI / SI Generation
+
+The Matlab code for computing CIs/SIs is located in the '/revCorrStim/matlab/CIGen' subdirectory.
