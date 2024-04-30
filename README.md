@@ -269,11 +269,17 @@ How to use:
 
    So, make sure you pick a descriptive name for baseOutDirName
 
-## Stimulus Presentation
 
-The Matlab code for running the stimulus is located in the '/revCorrStim/matlab/stimulus' subdirectory.
+## Machine-Specific Tweaks That Need To Be Done Before Running Stimulus For First Time:
 
-As of now, there are still a number of "user specific" parameters that will need to be set the first time you run the stimuli:
+There are still a few kinks to work out to make things work more seamlessly across machines.. 
+
+I know, they are annoying..
+
+Ethan intends to iron these out / come up with a more slick solution to handle these in the future.
+
+However, as of now, there are still a number of "machine specific" things that will need to be done before the first time you run the stimuli:
+
 1) Adjust hard-coded paths in revCorrInstructions_v1.m (this function generates example images/instructions before the task)
    - under the section titled '%% Generate the example images' you'll see section in which a large number of paths are hard coded:
      ```
@@ -465,6 +471,10 @@ As of now, there are still a number of "user specific" parameters that will need
           Screen('Preference','VisualDebugLevel', 0);
           Screen('Preference','SuppressAllWarnings', 1);
    ```
+
+## Stimulus Presentation
+
+The Matlab code for running the stimulus is located in the '/revCorrStim/matlab/stimulus' subdirectory.
 
 ## CI / SI Generation
 
