@@ -1,7 +1,7 @@
 # revCorrStim
 
 <p align="center">
-RevCorrStim is a repository of Matlab code for optimizing and running reverse correlation experiments aimed specifically at examining various object grouping principles.
+
 </p>
 
 <p align="center">
@@ -10,9 +10,13 @@ RevCorrStim is a repository of Matlab code for optimizing and running reverse co
 </p>
 <p align="center">
 
+# Overview:
 <p align="center">
   <div style="text-align: center;">
-  RevCorrStim uses a combination of Psychtoolbox functions and independently developed code to address the four most basic aspects of the psychophysical reverse correlation method:
+
+  RevCorrStim is a repository of Matlab code for optimizing and running reverse correlation experiments aimed specifically at examining various object grouping principles.
+    
+  This repositiory uses a combination of Psychtoolbox functions and independently developed code to address the four most basic aspects of the psychophysical reverse correlation method:
 
   1) Generating base images
   2) Generating noise images
@@ -20,3 +24,7 @@ RevCorrStim is a repository of Matlab code for optimizing and running reverse co
   4) Analysis software for generating classification and significance images (CIs and SIs)
   </div>
 </p>
+
+# Requirements/Dependencies:
+- Must have a relatively recent installation of MATLAB (2018 or newer)
+- Must have Psychtoolbox3 installed [link to PTB3 install]([https://github.com/ejduwell/TextyBeast/blob/main/README.md#notes](http://psychtoolbox.org/download.html))
