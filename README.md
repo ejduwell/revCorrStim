@@ -147,6 +147,21 @@ Follow the instructions below:
 
 7) Finally, run GenRevCorrBaseImsRF_v4 either by hitting the green "Run" button at the top of the matlab editor window or by running 'GenRevCorrBaseImsRF_v4' in the command window.
 
+   Note: This may take some time to run. It will also take over a portion of your screen as many Psychtoolbox functions used to generate the stimuli write the stimuli on screen windows.
+
+   When its finished there should be a new subdirectory in the revCorrStim/images folder corresponding to the name assigned to the 'outdir' parameter earlier plus a unique time/date string.
+   
+   The output directory will contain two subdirectories: 'nocc' and 'occ' which contain the non-occluded and occluded versions of the base images respectively.
+   It will also contain a .mat file which also contains copies of the images and workspace parameters from when the images were made such that all aspects of how the set was made can be referenced later.
+     - Data within the .mat file will all be saved within a structure called 'structOut' which contains the following:
+         - structOut.itParNamz (see itParNamz in 6 above)
+         - structOut.itrPars (see itrPars in 6 above)
+         - structOut.itrParsCom : In this case itrParsCom is the set of parameter combos which met the logical constraints/were used in the output image set.
+         - structOut.imOutMat : The output image set matching parameters in itrParsCom
+         - structOut.itrParsCom_all : the set of all possible parameter combos
+         - structOut.imConParNames : set of parameter names which correspond to /allow you to decipher the parameter tag abbreviations in the descriptive output file names
+         - structOut.Eqlz (see Eqlz in 6 above)
+
 ## Noise Image Generation
 
 The Matlab code for generating noise images is located in the 'revCorrStim/matlab/NoiseGen/imgKernelNoise' subdirectory.
