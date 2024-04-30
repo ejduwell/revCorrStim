@@ -171,6 +171,62 @@ Follow the instructions below:
 
 The Matlab code for generating noise images is located in the 'revCorrStim/matlab/NoiseGen/imgKernelNoise' subdirectory.
 
+The two "main functions" of interest for generating noise are currently:
+- kernelNoise2File_v2.m : For generating "kernel noise" images
+- whiteNoise2File_v1.m : For generating white noise images
+
+Very briefly, here is how you use each:
+
+kernelNoise2File_v2.m:
+This function generates a specified number of Ethan's 'kernel noise' images in an output directory
+In short this noise is essentially a weighted combination of sub-images which are each essentially a "patchwork quilt" tiled with various sized "kernel window" samples from random locations of an input base image. These are each also flipped at random orientations (vertical,horizontal, invert, or any combo of these). The set of sub-images are combined linearly with specified weights to form the output noise image.
+1) Adjust parameters in the '%% Parameters' section
+   Comment is provided next to each parameter, but we also include a list of the ones you'll likely want to adjust/know below:
+   ```
+    imgsPerKrnl_set = {...
+        [1,1,1,1,1,1,1,0,0],... % adjusts the total number of subtile images from each respective kernel incorporated into the noise
+        };
+
+    Repz=10; % sets total number of output images
+
+    jobChunks=10; % sets the number of chunks you want to break the job 
+                  % (total reps) into..
+
+    krnlImgWgts=[1,1,1,1,1,1,1,1,1]; % adjusts relative weights applied to subtile images from each respective kernel
+    smoothTiles=[0,0,0,0,0,0,0,0,0]; % apply smoothing kernel to intermediate subtile images?
+    gSmthK1sz=[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]; % size of gaussian smoothing kernel for subtiles..
+    smoothFinal=0; % apply smoothing kernel to final image?
+    gSmthK2sz=0.5; % size of gaussian smoothing kernel for final image..
+
+    nReps=Repz/jobChunks; % number of noise image copies/reps you want to run per pass..
+    nWorkers=8; % number of cpu nodes used in the parallelized portions..
+
+    %Specify desired size?
+    selectSize=1; % if 1, this means that we will use/resize the input image the selected size below
+    desiredSize=[512,512]; % (MUST BE SQUARE IMAGE AND DIMZ MUST BE POWER OF 2)
+
+    % Path to base image used to generate kernel noise
+    krnlNzBI="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png";
+
+    % Base for output directories created..
+    baseOutDirName="texOnlyBI_20000frms_krnlNz_imzPerKrnl";
+   
+    % Out Directory Base (parent directory where you want your output dirs
+    % created)
+    outDirMain="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/noise";
+   ```
+ 2)   Either hit "Run" or run kernelNoise2File_v2 in the command window.
+
+      This may take a while to finish.
+
+      When its done, there should be a directory full of noise images corresponding to the name string defined by 'baseOutDirName' in the parent directory defined by 'outDirMain'
+
+      Noise frames should be named "noiseSample00001.png" --> "noiseSample#####.png"
+
+      So, make sure you pick a descriptive name for baseOutDirName
+      
+
+
 ## Stimulus Presentation
 
 The Matlab code for running the stimulus is located in the '/revCorrStim/matlab/stimulus' subdirectory.
