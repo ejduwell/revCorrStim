@@ -214,7 +214,7 @@ How to use:
     krnlNzBI="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png";
 
     % Base for output directories created..
-    baseOutDirName="texOnlyBI_20000frms_krnlNz_imzPerKrnl";
+    baseOutDirName="texOnlyBI_100frms_krnlNz_imzPerKrnl";
    
     % Out Directory Base (parent directory where you want your output dirs
     % created)
@@ -256,7 +256,7 @@ How to use:
     % Out Directory Base (parent directory where you want your output dirs
     % created)
     outDirMain="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/noise";
-    baseOutDirName="512by512_whiteNoise_20000frms_smpl3";
+    baseOutDirName="512by512_whiteNoise_100frms_smpl";
    ```
    
 3) Either hit "Run" or run whiteNoise2File_v1 in the command window.
