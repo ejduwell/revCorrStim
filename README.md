@@ -152,6 +152,9 @@ Follow the instructions below:
    When its finished there should be a new subdirectory in the revCorrStim/images folder corresponding to the name assigned to the 'outdir' parameter earlier plus a unique time/date string.
    
    The output directory will contain two subdirectories: 'nocc' and 'occ' which contain the non-occluded and occluded versions of the base images respectively.
+
+   These will be further subdivided into "L" and "R" subdirectories which contain the left and right angled base images respectively.
+   
    It will also contain a .mat file which also contains copies of the images and workspace parameters from when the images were made such that all aspects of how the set was made can be referenced later.
      - Data within the .mat file will all be saved within a structure called 'structOut' which contains the following:
          - structOut.itParNamz (see itParNamz in 6 above)
