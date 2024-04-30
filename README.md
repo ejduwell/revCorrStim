@@ -476,6 +476,16 @@ However, as of now, there are still a number of "machine specific" things that w
 
 The Matlab code for running the stimulus is located in the '/revCorrStim/matlab/stimulus' subdirectory.
 
+A printable copy of the instruction script for experimenters to read to subjects is located at: /revCorrStim/matlab/stimulus/instructions/RevCorr_OGT_Instructions_v1.docx
+
+The "main script" for running the stimulus/experiments is: /revCorrStim/matlab/stimulus/RevCorr_main7.m
+
+How to use it:
+1) Type RevCorr_main7 in the command window and hit enter.
+2) A welcome banner should appear that looks something like this:
+   
+   Press Enter/Return to continut...
+
 ## CI / SI Generation
 
 The Matlab code for computing CIs/SIs is located in the '/revCorrStim/matlab/CIGen' subdirectory.
