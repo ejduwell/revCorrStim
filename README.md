@@ -59,10 +59,10 @@
 # Usage:
 
 This section explains how to use various aspects of the revCorrStim repository. Namely how to:
-- Generate Base Images ( [jump to section](https://github.com/ejduwell/revCorrStim/tree/main?tab=readme-ov-file#base-image-generation) )
-- Generate Noise Images ( [jump to section](https://github.com/ejduwell/revCorrStim/tree/main?tab=readme-ov-file#noise-image-generation) )
-- Run the Stimulus ( [jump to section](https://github.com/ejduwell/revCorrStim/tree/main?tab=readme-ov-file#running-an-experiment) )
-- Generate CIs/SIs ( [jump to section](https://github.com/ejduwell/revCorrStim/tree/main?tab=readme-ov-file#ci--si-generation) )
+- Generate Base Images ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#base-image-generation) )
+- Generate Noise Images ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#noise-image-generation) )
+- Run the Stimulus ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#running-an-experiment) )
+- Generate CIs/SIs ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#ci--si-generation) )
 
 In general, each of these aspects of the revCorrStim repository were intentionally created to stand alone as seperate "modules."
 
