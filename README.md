@@ -145,6 +145,8 @@ Follow the instructions below:
      
     - You'll notice that the other configurations in the '%% Parameters to Recursively Iterate Through Possible Combinations' subsection all define the same 4 parameters explained above under their respective "if statements". All that changes in each different configuration is the list of particular parameter vectors included in the itrPars set, the corresponding strings in itParNamz, and the equality conditions specified. Once understand how one configuration works, you should be able to understand the rest / be able make your own new configurations if you wish.
 
+7) Finally, run GenRevCorrBaseImsRF_v4 either by hitting the green "Run" button at the top of the matlab editor window or by running 'GenRevCorrBaseImsRF_v4' in the command window.
+
 ## Noise Image Generation
 
 The Matlab code for generating noise images is located in the 'revCorrStim/matlab/NoiseGen/imgKernelNoise' subdirectory.
