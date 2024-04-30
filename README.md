@@ -153,9 +153,11 @@ Follow the instructions below:
    
    The output directory will contain two subdirectories: 'nocc' and 'occ' which contain the non-occluded and occluded versions of the base images respectively.
 
-   These will be further subdivided into "L" and "R" subdirectories which contain the left and right angled base images respectively.
+   The 'nocc' and 'occ' subdirectories will be further subdivided into "L" and "R" subdirectories which contain the left and right angled base images respectively.
+
+   The main output directory will also always contain an image named 'fixation.png' This image contains only the fixation mark and inducers without the objects present.
    
-   It will also contain a .mat file which also contains copies of the images and workspace parameters from when the images were made such that all aspects of how the set was made can be referenced later.
+   Finally, in the interest of transparency and reproducability, the main output directory will also contain a .mat file which contains copies of the images and workspace parameters from when the images were made such that all relevant aspects of how the set was made can be referenced later.
      - Data within the .mat file will all be saved within a structure called 'structOut' which contains the following:
          - structOut.itParNamz (see itParNamz in 6 above)
          - structOut.itrPars (see itrPars in 6 above)
