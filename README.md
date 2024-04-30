@@ -94,15 +94,15 @@ The most recent copy of the 'main function' for generating base images is GenRev
 To generate base images you will need to update a few parameters in GenRevCorrBaseImsRF_v4.m and then run it.
 
 Follow the instructions below:
-1) open GenRevCorrBaseImsRF_v4.m in your Matlab editor window.
-2) scroll down to the '%% Parameters' section
-3) under the '%% System Parameters' subsection, change the 'outdir' to the name you want to assign to the output parent directory.
-4) select which grouping parameters you want to use:
+1) Open GenRevCorrBaseImsRF_v4.m in your Matlab editor window.
+2) Scroll down to the '%% Parameters' section
+3) Under the '%% System Parameters' subsection, change the 'outdir' to the name you want to assign to the output parent directory.
+4) Select which grouping parameters you want to use:
      - revCorrStim currently supports 3 different "object grouping parameters" out of the box (common region, texture, and luminance)
      - each of these hase their own parameter subsection ('%% Common Region Parameters', '%% Texture Parameters', and '%% Luminance Parameters')
      - to turn these on/off set the first parameter (T, CR, or L respectively) equal to either 1 or 0 (on or off).
      - You can, in fact, select any combination of these that you want. However, for the sake of simplicity, lets stick to luminance only for this example (set L=1, T=0, and CR=0)
-5) set the range of possibile parameter values for object 1 and object 2:
+5) Set the range of possibile parameter values for object 1 and object 2:
      - In this case, because we're just manipulating luminance, that means we will be adjusting 'lum1 and lum2' (in '%% Luminance Parameters' section)
      - Adjust the linspace command to specify the vectors of possible values for each. For example:
        ```
