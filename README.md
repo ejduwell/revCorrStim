@@ -27,4 +27,4 @@
 
 # Requirements/Dependencies:
 - Must have a relatively recent installation of MATLAB (2018 or newer)
-- Must have Psychtoolbox3 installed [link to PTB3 install]([https://github.com/ejduwell/TextyBeast/blob/main/README.md#notes](http://psychtoolbox.org/download.html))
+- Must have Psychtoolbox3 installed ( [link to PTB3 install](http://psychtoolbox.org/download.html) )
