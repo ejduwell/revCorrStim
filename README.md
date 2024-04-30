@@ -273,6 +273,104 @@ How to use:
 
 The Matlab code for running the stimulus is located in the '/revCorrStim/matlab/stimulus' subdirectory.
 
+As of now, there are still a number of "user specific" parameters that will need to be set the first time you run the stimuli:
+1) Adjust hard-coded paths in revCorrInstructions_v1.m (this function generates example images/instructions before the task)
+   - under the section titled '%% Generate the example images' you'll see section in which a large number of paths are hard coded:
+     ```
+      %% Generate the example images
+      % whichVersion="tex"; % 'lum', 'tex', or 'cr'
+      
+      if noizType=="krnlNz"
+      if whichVersion=="lum"
+      
+          % for lum
+          parzIn=struct; % initialize
+          parzIn.occImgR=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/occ/R/BaseIm_occ_0_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.occImgL=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgR=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/nocc/R/BaseIm_occ_1_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgL=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.fix_im=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/fixation.png"));
+          parzIn.noiseDir=strcat(main_dir,"/noise/lumOnlyBI_20000frms_krnlNz_imzPerKrnl_111111100");
+          parzIn.nWt=0.5;
+      
+      end
+      
+      if whichVersion=="cr"
+      
+          % for cr
+          parzIn=struct; % initialize
+          parzIn.occImgR=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/occ/R/BaseIm_occ_0_ori_m__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.occImgL=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/occ/L/BaseIm_occ_0_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgR=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/nocc/R/BaseIm_occ_1_ori_m__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgL=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/nocc/L/BaseIm_occ_1_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.fix_im=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/fixation.png"));
+          parzIn.noiseDir=strcat(main_dir,"/noise/crOnlyBI_20000frms_krnlNz_imzPerKrnl_111111100");
+          parzIn.nWt=0.5;
+      
+      end
+      
+      if whichVersion=="tex"
+      
+          % for tex
+          parzIn=struct; % initialize
+          parzIn.occImgR=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/occ/R/BaseIm_occ_0_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.occImgL=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgR=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/R/BaseIm_occ_1_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgL=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.fix_im=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/fixation.png"));
+          parzIn.noiseDir=strcat(main_dir,"/noise/texOnlyBI_v2_20000frms_krnlNz_imzPerKrnl_111111100");   
+          parzIn.nWt=0.5;
+      
+      end
+      end
+      
+      if noizType=="white"
+      if whichVersion=="lum"
+      
+          % for lum
+          parzIn=struct; % initialize
+          parzIn.occImgR=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/occ/R/BaseIm_occ_0_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.occImgL=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgR=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/nocc/R/BaseIm_occ_1_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgL=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.fix_im=imread(strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48/fixation.png"));
+          parzIn.noiseDir=strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl1");
+          parzIn.nWt=0.5;
+      
+      end
+      
+      if whichVersion=="cr"
+      
+          % for cr
+          parzIn=struct; % initialize
+          parzIn.occImgR=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/occ/R/BaseIm_occ_0_ori_m__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.occImgL=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/occ/L/BaseIm_occ_0_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgR=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/nocc/R/BaseIm_occ_1_ori_m__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgL=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/nocc/L/BaseIm_occ_1_ori_z__CR_1_CRpw_4_CRpl_0_CRal_1_CRob_1_CRdm_3315_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_51_lum2_51_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.fix_im=imread(strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09/fixation.png"));
+          parzIn.noiseDir=strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl2");
+          parzIn.nWt=0.5;
+      
+      end
+      
+      if whichVersion=="tex"
+          % for tex
+          parzIn=struct; % initialize
+          parzIn.occImgR=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/occ/R/BaseIm_occ_0_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.occImgL=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgR=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/R/BaseIm_occ_1_ori_m__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.noccImgL=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3315_T_1checkrz_Tr1_2.5_Tr2_0.4_Tal_1_L_0_lum1_127_lum2_127_LWT_1_Lal_1_Ocon_1.png"));
+          parzIn.fix_im=imread(strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14/fixation.png"));
+          parzIn.noiseDir=strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl3");   
+          parzIn.nWt=0.5;
+      
+      end
+      end
+     ```
+      You will need to adjust the paths to the right and left occluded and unoccluded example images (occImgR,occImgL,noccImgR,noccImgL), the fixation image (fix_im), and the noise directory path (noiseDir), to the paths on your local machine.
+
+      This will need to be done for the texture (tex), common region (cr), and luminance (lum) versions along with the kernel and white noise directories.
+
 ## CI / SI Generation
 
 The Matlab code for computing CIs/SIs is located in the '/revCorrStim/matlab/CIGen' subdirectory.
