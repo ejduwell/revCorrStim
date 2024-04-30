@@ -185,6 +185,7 @@ In short this noise is essentially a weighted combination of sub-images which ar
 
 How to use:
 1) Adjust parameters in the '%% Parameters' section
+   
    Comment is provided next to each parameter, but we also include a list of the ones you'll likely want to adjust/know below:
    ```
     imgsPerKrnl_set = {...
@@ -219,7 +220,7 @@ How to use:
     % created)
     outDirMain="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/noise";
    ```
- 2)   Either hit "Run" or run kernelNoise2File_v2 in the command window.
+ 3)   Either hit "Run" or run kernelNoise2File_v2 in the command window.
 
       This may take a while to finish.
 
@@ -234,8 +235,11 @@ How to use:
 
 This function generates a specified number of white noise images in an output directory.
 
+It works very similarly to kernelNoise2File_v2 above ...
+
 How to use:
 1) Adjust parameters in the '%% Parameters' section
+   
    Comment is provided next to each parameter, but we also include a list of the ones you'll likely want to adjust/know below:
    ```
     Repz=100; % sets total number of output images
@@ -254,6 +258,16 @@ How to use:
     outDirMain="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/noise";
     baseOutDirName="512by512_whiteNoise_20000frms_smpl3";
    ```
+   
+3) Either hit "Run" or run whiteNoise2File_v1 in the command window.
+   
+   This may take a while to finish.
+
+   When its done, there should be a directory full of noise images corresponding to the name string defined by 'baseOutDirName' in the parent directory defined by 'outDirMain'
+
+   Noise frames should be named "noiseSample00001.png" --> "noiseSample#####.png"
+
+   So, make sure you pick a descriptive name for baseOutDirName
 
 ## Stimulus Presentation
 
