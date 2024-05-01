@@ -483,8 +483,18 @@ The "main script" for running the stimulus/experiments is: /revCorrStim/matlab/s
 How to use it:
 1) Type RevCorr_main7 in the command window and hit enter.
 2) A welcome banner should appear that looks something like this:
-   
-   Press Enter/Return to continut...
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/welcomeBannerSnap.png" alt="stim1">
+    <br>
+  </p>
+  <p align="center">
+
+  Press Enter/Return to continue...
 
 ## CI / SI Generation
 
