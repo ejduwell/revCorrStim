@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/asciiSnapshot.png" alt="TextyBeast Logo">
+  <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/asciiSnapshot.png" alt="revCorrStim">
   <br>
 </p>
 <p align="center">
