@@ -567,7 +567,28 @@ The "main script" for running the stimulus/experiments is: /revCorrStim/matlab/s
     <br>
   </p>
   <p align="center">  
-  - Each row in the tdf is a trial
+
+  - The first row contains column headers
+  - Each subsequent row in the tdf is a trial
+  - Columns 1-18 are should be the same for all stimulus versions:
+      - 1 "ImgFile_Path" : full path to base image presented on this trial
+      - 2 "QUEST_Con" : specifies which interleaved QUEST suggested the parameter value on this trial
+      - 3 "occCon" : occlusion condition (1=non-occluded, 0=occluded)
+      - 4 "questPar" : the parameter being manipulated by QUEST
+      - 5 "Image" : copy of base image presented on this trial
+      - 6 "Randomization_Col" : empty/not currently being used..
+      - 7 "Correct_RespKey" : indicates what the correct response is (button) for this trial
+      - 8 "T_Resp" : the subject's response time for this trial (time image appears --> time button is pressed)
+      - 9 "T_Trial" : total trial length for this trial without the inter-trial-interval included
+      - 10 "T_Trial_wITI" : total trial length for this trial with the inter-trial-interval included
+      - 11 "Subj_RespKey" : the response button the subject pressed for this trial
+      - 12 "Correctness" : indicates whether the subject's response was correct (0=incorrect, 1=correct)
+      - 13 "tStart_Raw" : raw time stamp for the start of the trial
+      - 14 "tEnd_Raw" : raw time stamp for the end of the trial
+      - 15 "tITIstart_Raw" : raw time stamp for the start of the inter-trial-interval
+      - 16 "tITIend_Raw" : raw time stamp for the end of the inter-trial-interval
+      - 17 "noiseImgFile" : full path to the noise image for this trial
+      - 18 "noiseImg" : copy of the noise image for this trial
 
   Figures ploting the subject's response data and estimated psychometric curves are saved as .tif files.
 
