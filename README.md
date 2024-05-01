@@ -496,6 +496,32 @@ How to use it:
 
   Press Enter/Return to continue...
 
+3) You will then be prompted to enter a subject id. Enter a 3-letter ID and hit enter:
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/subjInitPromptSnap.png" alt="stim2">
+    <br>
+  </p>
+  <p align="center">
+
+4) It will then ask whether your want to run the occluded base images, non-occluded base images or both. Specify as requested and hit enter:
+   (I chose both)
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/occNoccBothSnap.png" alt="stim3">
+    <br>
+  </p>
+  <p align="center">
+
+5) 
 ## CI / SI Generation
 
 The Matlab code for computing CIs/SIs is located in the '/revCorrStim/matlab/CIGen' subdirectory.
