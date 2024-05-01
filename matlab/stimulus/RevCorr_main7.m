@@ -1,6 +1,6 @@
 % RevCorr_main7
 % -------------------------------------------------------------------------
-% This is the main script for running thereverse correlation object grouping
+% This is the main script for running reverse correlation object grouping
 % experiments
 %
 % This script is intended to be run 'interactively.' To run it, simply call:
@@ -8,7 +8,8 @@
 % to enter various parameters to run the experiment in the manner of your
 % chosing..
 %
-% Written by: E.J. Duwell, PhD
+% Written by: E.J. Duwell, PhD while working as a postdoc in 
+% SNAP Lab run by Adam S. Greenberg's lab at MCW, Milwaukee WI
 % 4/29/24
 % -------------------------------------------------------------------------
 
@@ -19,7 +20,13 @@ clc; % clear command line interface..
 current_version = 'RevCorr_main7.m'; % will need to update with versioning..
 mlab_dir = fileparts(which(current_version));
 % cd to it..
-cd(mlab_dir)
+cd(mlab_dir);
+
+% get main dir too..
+cd ..
+cd ..
+mainDir=pwd;
+cd(mlab_dir);%return to mlab_dir
 
 
 diaryfile=strcat(mlab_dir,"/commandWindowDiary");
@@ -90,7 +97,7 @@ fprintf(greeting2)
 fprintf('\n')
 versionmsg = strcat("(",current_version, ", Written by: E.J. Duwell, PhD)");
 versionmsg = cln_cmdlinemsg(ref_str,versionmsg," ");
-instr_pgMsg = strcat("(Read: ",mlab_dir,"/README.docx)");
+instr_pgMsg = strcat("(Read: ",mainDir,"/README.md)");
 instr_pgMsg = cln_cmdlinemsg(ref_str,instr_pgMsg," ");
 fprintf(versionmsg)
 fprintf(instr_pgMsg)

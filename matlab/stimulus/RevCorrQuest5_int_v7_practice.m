@@ -1,4 +1,4 @@
-function [trialtm,ts_out,qs_out,sd_out,nr_ideals, params_out, tdf_out] = RevCorrQuest5_int_v7_practice(room,kboard,numtrials,link,noise,window,image_dir,db_mode,db_mode_screen,nr_params, imtag, pthrds, n_int, qst_startParams,t_prob,maxmin,maxmin_seg,main_dir,olCon,parTagz,obj1Par,obj2Par,qstParStr,noise_dir,nWt,nTag,sessionDir,noizType)
+function [trialtm,ts_out,qs_out,sd_out,nr_ideals, params_out, tdf_out] = RevCorrQuest5_int_v7_practice(room,kboard,numtrials,link,noise,window,image_dir,db_mode,db_mode_screen,nr_params, imtag, pthrds, n_int, qst_startParams,t_prob,maxmin,maxmin_seg,main_dir,olCon,parTagz,obj1Par,obj2Par,qstParStr,noise_dir,nWt,nTag,sessionDir,noizType,trialParz,exImz)
 
 Screen('Preference', 'SkipSyncTests', 1); %EJD: added to skip sync tests
 Screen('Preference','SuppressAllWarnings', 1);
@@ -25,10 +25,10 @@ if db_respV == 3
 end
 
 %% Trial Params
-presTime=0.25; % time after trial start that stimuli are presented ..(sec)
-presTime2=presTime+0.5; % time after trial start that stimuli are removed ..(sec)
-resp_cut = 2; % Max time after trial start that responses are recorded
-ITI	=0.5; % inter-trial interval time (sec).. (time btw trials)
+presTime=trialParz.presTime; % time after trial start that stimuli are presented ..(sec)
+presTime2=trialParz.presTime2; % time after trial start that stimuli are removed ..(sec)
+resp_cut = trialParz.resp_cut; % Max time after trial start that responses are recorded
+ITI	=trialParz.ITI; % inter-trial interval time (sec).. (time btw trials)
 fback_On = 1; % switch for feedback
 fb_correct = '$';
 fb_incorrect = ' ';
@@ -643,12 +643,12 @@ try
 
     %% Practice Instructions Sequence..
     %EJD TEMP COMMENT..
-    revCorrInstructions_v1(window,screenrect,intro_txtHeaderSize,intro_txtSize,scrn_top,scrn_bot,scrn_1percY,scrn_1percX,scrn_left,scrn_right,black,gray,whichVersion,noizType);
+    %revCorrInstructions_v1(window,screenrect,intro_txtHeaderSize,intro_txtSize,scrn_top,scrn_bot,scrn_1percY,scrn_1percX,scrn_left,scrn_right,black,gray,whichVersion,noizType);
+    revCorrInstructions_v2(window,screenrect,intro_txtHeaderSize,intro_txtSize,scrn_top,scrn_bot,scrn_1percY,scrn_1percX,scrn_left,scrn_right,black,gray,whichVersion,noizType,exImz);
 
     %Start KbQueue
     KbQueueCreate();
     trialtm = zeros(5,numtrials);   % pre-allocate
-
 
 
     % INSTRUCTIONS PAGE (Practice-trial specific stuff)..:

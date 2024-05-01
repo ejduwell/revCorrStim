@@ -1,10 +1,11 @@
-function [trialtm,ts_out,qs_out,sd_out,nr_ideals, params_out, tdf_out] = RevCorrQuest5_int_v7(room,kboard,numtrials,link,noise,window,image_dir,db_mode,db_mode_screen,nr_params, imtag, pthrds, n_int, qst_startParams,t_prob,maxmin,maxmin_seg,main_dir,olCon,parTagz,obj1Par,obj2Par,qstParStr,noise_dir,nWt,nTag,sessionDir,giveInstrxn,noizType)
+function [trialtm,ts_out,qs_out,sd_out,nr_ideals, params_out, tdf_out] = RevCorrQuest5_int_v7(room,kboard,numtrials,link,noise,window,image_dir,db_mode,db_mode_screen,nr_params, imtag, pthrds, n_int, qst_startParams,t_prob,maxmin,maxmin_seg,main_dir,olCon,parTagz,obj1Par,obj2Par,qstParStr,noise_dir,nWt,nTag,sessionDir,giveInstrxn,noizType,trialParz,exImz)
 
 Screen('Preference', 'SkipSyncTests', 1); %EJD: added to skip sync tests
 Screen('Preference','SuppressAllWarnings', 1);
 rng("shuffle"); % shuffle random number generator..
 
 %% Debug Mode Params
+
 db_respV = 3; % Specify what sort of automatic response version you want in debug mode: 0 = all random, 1 = all correct, 2 = all incorrect, 3 = incorrect below db_respV3_thr & correct above db_respV3_thr
 db_wait = 0; % Specify the amount of time (in sec) you want to wait between automatic responses in db_mode to view frames..
 db_ans = 1; % if 1, program will print the answer on each frame during debugging..
@@ -24,10 +25,11 @@ if db_respV == 3
 end
 
 %% Trial Params
-presTime=0.25; % time after trial start that stimuli are presented ..(sec)
-presTime2=presTime+0.5; % time after trial start that stimuli are removed ..(sec)
-resp_cut = 2; % Max time after trial start that responses are recorded
-ITI	=0.5; % inter-trial interval time (sec).. (time btw trials)
+
+presTime=trialParz.presTime; % time after trial start that stimuli are presented ..(sec)
+presTime2=trialParz.presTime2; % time after trial start that stimuli are removed ..(sec)
+resp_cut = trialParz.resp_cut; % Max time after trial start that responses are recorded
+ITI	=trialParz.ITI; % inter-trial interval time (sec).. (time btw trials)
 fback_On = 0; % switch for feedback
 fb_correct = '$';
 fb_incorrect = ' ';
@@ -635,7 +637,8 @@ try
     end
 
     if giveInstrxn == 1
-        revCorrInstructions_v1(window,screenrect,intro_txtHeaderSize,intro_txtSize,scrn_top,scrn_bot,scrn_1percY,scrn_1percX,scrn_left,scrn_right,black,gray,whichVersion,noizType);
+        %revCorrInstructions_v1(window,screenrect,intro_txtHeaderSize,intro_txtSize,scrn_top,scrn_bot,scrn_1percY,scrn_1percX,scrn_left,scrn_right,black,gray,whichVersion,noizType);
+        revCorrInstructions_v2(window,screenrect,intro_txtHeaderSize,intro_txtSize,scrn_top,scrn_bot,scrn_1percY,scrn_1percX,scrn_left,scrn_right,black,gray,whichVersion,noizType,exImz);
     end
 
     %% Start trials and add results to Quest databases

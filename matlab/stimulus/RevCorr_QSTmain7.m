@@ -8,6 +8,19 @@ clear;
 Screen('Preference', 'SkipSyncTests', 1); %EJD: added to skip sync tests
 Screen('Preference','SuppressAllWarnings', 1);
 
+% =========================================================================
+% Specify expmtDescriptorFile:
+% =========================================================================
+expDescFile="expmtDescriptorFile_1";
+disp(" ");
+disp(strcat("Experiment descriptor file is set to: ",which(expDescFile)));
+disp(" ");
+% =========================================================================
+% Read in expmtDescriptorFile parameters:
+% =========================================================================
+expParz = eval(expDescFile);
+% =========================================================================
+
 % Detect and set directory/path params:
 % -------------------------------------
 % get matlab directory path by "which-ing" for this file..
@@ -137,40 +150,52 @@ disp(" ");
 db_mode = 1;
 db_mode_screen = 1;
 dbm_skip = 1;
-
 quest_db = 1;
 start_dir = pwd;
 
 % Tag for finding/selecting base images within the base image directory..
-imtag = ".png"; % unique tag in filename iding the images you want...
+%imtag = ".png"; % unique tag in filename iding the images you want...
+imtag=expParz.BI_parz.gen.imtag;
 
 if noizType=="white"
     if L==1 && T ==0 && C==0
-        noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl1");
-        nTag=".png";
+        %noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl1");
+        noise_dir = strcat(main_dir,"/noise/",expParz.noise.lum.white.noise_dir);
+        %nTag=".png";
+        nTag=expParz.noise.lum.white.nTag;
     end
     if T==1 && L==0 && L==0
-        noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl2");
-        nTag=".png";
+        %noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl2");
+        noise_dir = strcat(main_dir,"/noise/",expParz.noise.tex.white.noise_dir);
+        %nTag=".png";
+        nTag=expParz.noise.tex.white.nTag;
     end
     if C==1 && L==0 && T==0
-        noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl3");
-        nTag=".png";
+        %noise_dir = strcat(main_dir,"/noise/512by512_whiteNoise_20000frms_smpl3");
+        noise_dir = strcat(main_dir,"/noise/",expParz.noise.cr.white.noise_dir);
+        %nTag=".png";
+        nTag=expParz.noise.cr.white.nTag;
     end
 end
 
 if noizType=="krnlNz"
     if L==1 && T ==0 && C==0
-        noise_dir = strcat(main_dir,"/noise/lumOnlyBI_20000frms_krnlNz_imzPerKrnl_111111100");
-        nTag=".png";
+        %noise_dir = strcat(main_dir,"/noise/lumOnlyBI_20000frms_krnlNz_imzPerKrnl_111111100");
+        noise_dir = strcat(main_dir,"/noise/",expParz.noise.lum.kernel.noise_dir);
+        %nTag=".png";
+        nTag=expParz.noise.lum.kernel.nTag;
     end
     if T==1 && L==0 && L==0
-        noise_dir = strcat(main_dir,"/noise/texOnlyBI_v2_20000frms_krnlNz_imzPerKrnl_111111100");
-        nTag=".png";
+        %noise_dir = strcat(main_dir,"/noise/texOnlyBI_v2_20000frms_krnlNz_imzPerKrnl_111111100");
+        noise_dir = strcat(main_dir,"/noise/",expParz.noise.tex.kernel.noise_dir);
+        %nTag=".png";
+        nTag=expParz.noise.tex.kernel.nTag;
     end
     if C==1 && L==0 && T==0
-        noise_dir = strcat(main_dir,"/noise/crOnlyBI_20000frms_krnlNz_imzPerKrnl_111111100");
-        nTag=".png";
+        %noise_dir = strcat(main_dir,"/noise/crOnlyBI_20000frms_krnlNz_imzPerKrnl_111111100");
+        noise_dir = strcat(main_dir,"/noise/",expParz.noise.cr.kernel.noise_dir);
+        %nTag=".png";
+        nTag=expParz.noise.tex.kernel.nTag;
     end
 end
 
@@ -184,23 +209,39 @@ end
 if L==1 && T ==0 && C==0
     stimVer="lum";
     % LUMINANCE ONLY
-    image_dir = strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48");
-    qstParStr="lumDiff"; % diff between lum1/lum2
-    parTagz = ["lum1","lum2"];
-    obj1Par="lum1";
-    obj2Par="lum2";
-    nWt=0.75;
+    %image_dir = strcat(main_dir,"/images/test4_LumOnly-05-Mar-2024-10-12-48");
+    image_dir = strcat(main_dir,"/images/",expParz.BI_dirs.lum);
+    
+%     qstParStr="lumDiff"; % diff between lum1/lum2
+%     parTagz = ["lum1","lum2"];
+%     obj1Par="lum1";
+%     obj2Par="lum2";
+%     nWt=0.75;
+
+    qstParStr=expParz.BI_parz.lum.qstParStr; % diff between lum1/lum2
+    parTagz=expParz.BI_parz.lum.parTagz;
+    obj1Par=expParz.BI_parz.lum.obj1Par;
+    obj2Par=expParz.BI_parz.lum.obj2Par;
+    nWt=expParz.BI_parz.lum.nWt;
 end
 
 if T==1 && L==0 && C==0
     stimVer="tex";
     % TEXTURE ONLY
-    image_dir = strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14"); % generalized
-    qstParStr="texDiff"; % diff between texture resolution1/texture resolution2
-    parTagz = ["Tr1","Tr2"];
-    obj1Par="Tr1";
-    obj2Par="Tr2";
-    nWt=0.75;
+    %image_dir = strcat(main_dir,"/images/test6_TexOnly-19-Apr-2024-11-43-14"); % generalized
+    image_dir = strcat(main_dir,"/images/",expParz.BI_dirs.tex);
+    
+%     qstParStr="texDiff"; % diff between texture resolution1/texture resolution2
+%     parTagz = ["Tr1","Tr2"];
+%     obj1Par="Tr1";
+%     obj2Par="Tr2";
+%     nWt=0.75;
+
+    qstParStr=expParz.BI_parz.tex.qstParStr; % diff between texture resolution1/texture resolution2
+    parTagz=expParz.BI_parz.tex.parTagz;
+    obj1Par=expParz.BI_parz.tex.obj1Par;
+    obj2Par=expParz.BI_parz.tex.obj2Par;
+    nWt=expParz.BI_parz.tex.nWt;
 end
 % -------------------------------------------------------------------------
 
@@ -208,12 +249,20 @@ end
 if C==1 && L==0 && T==0
     stimVer="cr";
     % COMMON REGION ONLY
-    image_dir = strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09"); % generalized
-    qstParStr="CRpl"; % common region boundary luminance
-    parTagz = ["CRpl"];
-    obj1Par="CRpl";
-    obj2Par="CRpl";
-    nWt=0.75;
+    %image_dir = strcat(main_dir,"/images/test5_CROnly-11-Mar-2024-14-16-09"); % generalized
+    image_dir = strcat(main_dir,"/images/",expParz.BI_dirs.cr);
+    
+%     qstParStr="CRpl"; % common region boundary luminance
+%     parTagz = ["CRpl"];
+%     obj1Par="CRpl";
+%     obj2Par="CRpl";
+%     nWt=0.75;
+
+    qstParStr=expParz.BI_parz.cr.qstParStr; % common region boundary luminance
+    parTagz = expParz.BI_parz.cr.parTagz;
+    obj1Par=expParz.BI_parz.cr.obj1Par;
+    obj2Par=expParz.BI_parz.cr.obj2Par;
+    nWt=expParz.BI_parz.cr.nWt;
 end
 % -------------------------------------------------------------------------
 
@@ -234,41 +283,41 @@ end
 %##########################################################################
 
 % Quest Parameters
-n_int = 3; % specify the number of interleved quests you want.. if 1,
-% no interleaving will occur.. only threshold 1 will be used. Can range
-% from 0-5.. 5 is the max # of quests you can currently interleave ..
+n_int = expParz.questParz.n_int; % specify the number of interleved quests you want.. if 1,
+           % no interleaving will occur.. only threshold 1 will be used. Can range
+           % from 0-5.. 5 is the max # of quests you can currently interleave ..
 
-quests_ntrials_init = 50; % specify number of trials in each quest test rep on the first quest block
-quests_ntrials_reg = 100; % specify number of trials in each quest test rep  on the quest block after the first block
-quests_ntrials_practice = 6; % specify number of trials in each quest test rep
+quests_ntrials_init = expParz.questParz.quests_ntrials_init; % specify number of trials in each quest test rep on the first quest block
+quests_ntrials_reg = expParz.questParz.quests_ntrials_reg; % specify number of trials in each quest test rep  on the quest block after the first block
+quests_ntrials_practice = expParz.questParz.quests_ntrials_practice; % specify number of trials in each quest test rep
 
-t_prob = 0.5; % probablility/proportion of right vs. left trials (FOR THE ACTUAL EXPERIMENT)
-t_prob_practice = 0.5; % probablility/proportion of right vs. left trials (FOR THE PRACTICE SESSION)
+t_prob = expParz.questParz.t_prob; % probablility/proportion of right vs. left trials (FOR THE ACTUAL EXPERIMENT)
+t_prob_practice = expParz.questParz.t_prob_practice; % probablility/proportion of right vs. left trials (FOR THE PRACTICE SESSION)
 
 %Set different max/min parameter limits based on experiment type...
 if qstParStr=="lumDiff"
-    maxmin = cell(1,2); % initialize maxmin
-    maxmin{1,1} = 255; % specifies the maximum parameter value allowed in quest..
-    maxmin{1,2} = 0; % specifies the minimum parameter value allowed in quest..
-    maxmin_seg = 0; % if 1, will segment the curve into n_int pieces and set
+    maxmin = expParz.questParz.lum.maxmin;
+%     maxmin{1,1} = 255; % specifies the maximum parameter value allowed in quest..
+%     maxmin{1,2} = 0; % specifies the minimum parameter value allowed in quest..
+    maxmin_seg = expParz.questParz.lum.maxmin_seg; % if 1, will segment the curve into n_int pieces and set
     % separate maxs/mins for each segment to try to ensure even coverage..
     % NOTE: IF YOU SELECT MAXMIN_SEG, MAKE SURE YOUR PTHRESHOLDS ARE IN
     % ASCENDING ORDER!!!
 end
 if qstParStr=="texDiff"
-    maxmin = cell(1,2); % initialize maxmin
-    maxmin{1,1} = 6.25; % specifies the maximum parameter value allowed in quest..
-    maxmin{1,2} = 0; % specifies the minimum parameter value allowed in quest..
-    maxmin_seg = 0; % if 1, will segment the curve into n_int pieces and set
+    maxmin = expParz.questParz.tex.maxmin;
+%     maxmin{1,1} = 6.25; % specifies the maximum parameter value allowed in quest..
+%     maxmin{1,2} = 0; % specifies the minimum parameter value allowed in quest..
+    maxmin_seg = expParz.questParz.tex.maxmin_seg ; % if 1, will segment the curve into n_int pieces and set
     % separate maxs/mins for each segment to try to ensure even coverage..
     % NOTE: IF YOU SELECT MAXMIN_SEG, MAKE SURE YOUR PTHRESHOLDS ARE IN
     % ASCENDING ORDER!!!
 end
 if qstParStr=="CRpl"
-    maxmin = cell(1,2); % initialize maxmin
-    maxmin{1,1} = 127.5; % specifies the maximum parameter value allowed in quest..
-    maxmin{1,2} = 0; % specifies the minimum parameter value allowed in quest..
-    maxmin_seg = 0; % if 1, will segment the curve into n_int pieces and set
+    maxmin = expParz.questParz.cr.maxmin;
+%     maxmin{1,1} = 127.5; % specifies the maximum parameter value allowed in quest..
+%     maxmin{1,2} = 0; % specifies the minimum parameter value allowed in quest..
+    maxmin_seg = expParz.questParz.cr.maxmin_seg; % if 1, will segment the curve into n_int pieces and set
     %separate maxs/mins for each segment to try to ensure even coverage..
     % NOTE: IF YOU SELECT MAXMIN_SEG, MAKE SURE YOUR PTHRESHOLDS ARE IN
     % ASCENDING ORDER!!!
@@ -295,15 +344,16 @@ end
 % ABOVE) SOME OF THESE THRESHOLDS MAY OR MAY NOT BE USED.. IT USES THE
 % PTHRESHOLDS 1-N_INT...
 %Staircase1
-pThreshold1=0.65; % NOTE: this is the one compared on the graphs..
+pThreshold1=expParz.questParz.pThreshold1; % NOTE: this is the one compared on the graphs..
 %Staircase2
-pThreshold2=0.75;
+pThreshold2=expParz.questParz.pThreshold2;
 %Staircase3
-pThreshold3=0.85;
+pThreshold3=expParz.questParz.pThreshold3;
 %Staircase4
-pThreshold4=0.85;
+pThreshold4=expParz.questParz.pThreshold4;
 %Staircase5
-pThreshold5=0.85;
+pThreshold5=expParz.questParz.pThreshold5;
+
 % Load the above into a structure...
 pthrds = struct();
 pthrds.thr1 = pThreshold1;
@@ -577,10 +627,15 @@ try
     ver_curve_out = cell(1,quest_testreps);
     tdfs = cell(1,quest_testreps);
 
+    % Pull out the trial parameters from the experiment descriptor struct..
+    trialParz=expParz.trialParz;
+    % Pull out the example image info too for the instructions..
+    exImz=expParz.exImz;
+
     %% Run practice trials if requested..
     if run_pracTrls == "y"
         % run the practice session if requested:
-        [~,~,~,~,~, ~,tdf_out_practice] = RevCorrQuest5_int_v7_practice(room,kboard,quests_ntrials_practice,link,1,window,image_dir,db_mode,db_mode_screen,nr_params, imtag, pthrds,n_int,qst_startParams,t_prob,maxmin,maxmin_seg,main_dir,olCon,parTagz,obj1Par,obj2Par,qstParStr,noise_dir,nWt,nTag,out_dir,noizType);
+        [~,~,~,~,~, ~,tdf_out_practice] = RevCorrQuest5_int_v7_practice(room,kboard,quests_ntrials_practice,link,1,window,image_dir,db_mode,db_mode_screen,nr_params, imtag, pthrds,n_int,qst_startParams,t_prob,maxmin,maxmin_seg,main_dir,olCon,parTagz,obj1Par,obj2Par,qstParStr,noise_dir,nWt,nTag,out_dir,noizType,trialParz,exImz);
     else
         tdf_out_practice = [];
     end
@@ -596,7 +651,7 @@ try
             giveInstrxn=0;
         end
 
-        [trialtm,ts_out,qs_out,sd_out,nr_ideals, params_out,tdf_out] = RevCorrQuest5_int_v7(room,kboard,quests_ntrials,link,1,window,image_dir,db_mode,db_mode_screen,nr_params, imtag, pthrds,n_int,qst_startParams,t_prob,maxmin,maxmin_seg,main_dir,olCon,parTagz,obj1Par,obj2Par,qstParStr,noise_dir,nWt,nTag,out_dir,giveInstrxn,noizType);
+        [trialtm,ts_out,qs_out,sd_out,nr_ideals, params_out,tdf_out] = RevCorrQuest5_int_v7(room,kboard,quests_ntrials,link,1,window,image_dir,db_mode,db_mode_screen,nr_params, imtag, pthrds,n_int,qst_startParams,t_prob,maxmin,maxmin_seg,main_dir,olCon,parTagz,obj1Par,obj2Par,qstParStr,noise_dir,nWt,nTag,out_dir,giveInstrxn,noizType,trialParz,exImz);
 
         % Create "waiting" Page
         Screen('FillRect', window, gray); % gray out window
