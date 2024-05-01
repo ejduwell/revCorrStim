@@ -276,6 +276,56 @@ The Matlab code for running the stimulus is located in the '/revCorrStim/matlab/
 
 A printable copy of the instruction script for experimenters to read to subjects is located at: /revCorrStim/matlab/stimulus/instructions/RevCorr_OGT_Instructions_v1.docx
 
+### Updating the Experiment Descriptor File
+Before you run the stimulus presentation program for the first time, you will need to update the "experiment descriptor file" to point to the noise and base image folders you want to use on your machine.
+
+An instance of an experiment descriptor file is included in the initial package install called 'expmtDescriptorFile_1.m' 
+
+The expmtDescriptorFile is essentially a 'master descriptor file' that is intended to serve as the 'one-stop-shop' where key parameters regarding choice of base images, noise images, QUEST parameters, and trial timing parameters are set.
+
+Parameters set here should all be stored within a unified struct variable called 'expParz' that is intialized at the beginning of the file. This struct is exported as the output variable such that other programs in the revCorrStim repository can access them by calling the expmtDescriptorFile.
+
+To update your expmtDescriptorFile_1:
+1) Open expmtDescriptorFile_1.m in your matlab editor
+2) Scroll to the '%% Set Base Image Parameters' section and change the directory name strings for the luminance, texture, and common region base image directories to point to the ones you created on your machine in the revCorrStim/images subdirectory:
+   ```
+   % luminance bi directory:
+   expParz.BI_dirs.lum="CHANGE_TO_YOUR_DIR_NAME";
+
+   % texture bi directory:
+   expParz.BI_dirs.tex="CHANGE_TO_YOUR_DIR_NAME";
+
+   % common region bi directory:
+    expParz.BI_dirs.cr="CHANGE_TO_YOUR_DIR_NAME";
+   ```
+3) Similarly, you will also need to adjust the directory names in the '%% Set Noise Image Parameters' section to point your desired noise directories that you created in the revCorrStim/subdirectory.
+4) Finally, you will need to scroll down to the '%% Set Parameters for Example Images / Instructions Page' subsection and update the paths to point ot the example images and noise directories you want to present on the instruction page for the luminance, common region and texture versions of the task.
+
+If you wish you can update any of the other parameters within the expmtDescriptorFile as well. I've tried to provide comment describing what each is and what they do. 
+
+You can also make multiple expmtDescriptorFile copies to set up different experiments / configurations. 
+
+To point to a different expmtDescriptorFile: 
+- Open RevCorr_QSTmain7.m and scroll to the '%% Parameters' section.
+- You should see a section near the top like the one copied below:
+  ```
+  % =========================================================================
+  % Specify expmtDescriptorFile:
+  % =========================================================================
+  expDescFile="expmtDescriptorFile_1";
+  disp(" ");
+  disp(strcat("Experiment descriptor file is set to: ",which(expDescFile)));
+  disp(" ");
+  % =========================================================================
+  % Read in expmtDescriptorFile parameters:
+  % =========================================================================
+  expParz = eval(expDescFile);
+  % ========================================================================= 
+  ```
+- To point to a different descriptor file, simply set the 'expDescFile' parameter equal to your new descriptor file name string (without the .m extension);
+
+### Running the Stimulus
+
 The "main script" for running the stimulus/experiments is: /revCorrStim/matlab/stimulus/RevCorr_main7.m
 
 How to use it:
