@@ -85,7 +85,7 @@ This approach allows users to create multiple different versions of an experimen
 </p>
 
 
-## Base Image Generation
+## Base Image Generation:
 
 The Matlab code for generating base images is located in the '/revCorrStim/matlab/BaseImgGen' subdirectory.
 
@@ -167,7 +167,7 @@ Follow the instructions below:
          - structOut.imConParNames : set of parameter names which correspond to /allow you to decipher the parameter tag abbreviations in the descriptive output file names
          - structOut.Eqlz (see Eqlz in 6 above)
 
-## Noise Image Generation
+## Noise Image Generation:
 
 The Matlab code for generating noise images is located in the 'revCorrStim/matlab/NoiseGen/imgKernelNoise' subdirectory.
 
@@ -183,7 +183,7 @@ This function generates a specified number of Ethan's 'kernel noise' images in a
 
 In short this noise is essentially a weighted combination of sub-images which are each essentially a "patchwork quilt" tiled with various sized "kernel window" samples from random locations of an input base image. These are each also flipped at random orientations (vertical,horizontal, invert, or any combo of these). The set of sub-images are combined linearly with specified weights to form the output noise image.
 
-How to use:
+#### How to use:
 1) Adjust parameters in the '%% Parameters' section
    
    Comment is provided next to each parameter, but we also include a list of the ones you'll likely want to adjust/know below:
@@ -237,7 +237,7 @@ This function generates a specified number of white noise images in an output di
 
 It works very similarly to kernelNoise2File_v2 above ...
 
-How to use:
+#### How to use:
 1) Adjust parameters in the '%% Parameters' section
    
    Comment is provided next to each parameter, but we also include a list of the ones you'll likely want to adjust/know below:
@@ -270,13 +270,13 @@ How to use:
    So, make sure you pick a descriptive name for baseOutDirName
 
 
-## Stimulus Presentation
+## Stimulus Presentation:
 
 The Matlab code for running the stimulus is located in the '/revCorrStim/matlab/stimulus' subdirectory.
 
 A printable copy of the instruction script for experimenters to read to subjects is located at: /revCorrStim/matlab/stimulus/instructions/RevCorr_OGT_Instructions_v1.docx
 
-### Updating the Experiment Descriptor File
+### Updating the Experiment Descriptor File:
 Before you run the stimulus presentation program for the first time, you will need to update the "experiment descriptor file" to point to the noise and base image folders you want to use on your machine.
 
 An instance of an experiment descriptor file is included in the initial package install called 'expmtDescriptorFile_1.m' 
@@ -301,7 +301,7 @@ To update your expmtDescriptorFile_1:
 3) Similarly, you will also need to adjust the directory names in the '%% Set Noise Image Parameters' section to point your desired noise directories that you created in the revCorrStim/subdirectory.
 4) Finally, you will need to scroll down to the '%% Set Parameters for Example Images / Instructions Page' subsection and update the paths to point ot the example images and noise directories you want to present on the instruction page for the luminance, common region and texture versions of the task.
 
-If you wish you can update any of the other parameters within the expmtDescriptorFile as well. I've tried to provide comment describing what each is and what they do. 
+If you wish, you can update any of the other parameters within the expmtDescriptorFile as well. I've tried to provide comment describing what each one is / what they do. 
 
 You can also make multiple expmtDescriptorFile copies to set up different experiments / configurations. 
 
@@ -324,11 +324,11 @@ To point to a different expmtDescriptorFile:
   ```
 - To point to a different descriptor file, simply set the 'expDescFile' parameter equal to your new descriptor file name string (without the .m extension);
 
-### Running the Stimulus
+### Running the Stimulus:
 
 The "main script" for running the stimulus/experiments is: /revCorrStim/matlab/stimulus/RevCorr_main7.m
 
-How to use it:
+#### How to run it:
 1) Type RevCorr_main7 in the command window and hit enter.
 2) A welcome banner should appear that looks something like this:
 
@@ -561,6 +561,6 @@ How to use it:
     
     
  
-## CI / SI Generation
+## CI / SI Generation:
 
 The Matlab code for computing CIs/SIs is located in the '/revCorrStim/matlab/CIGen' subdirectory.
