@@ -61,7 +61,7 @@
 This section explains how to use various aspects of the revCorrStim repository. Namely how to:
 - Generate Base Images ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#base-image-generation) )
 - Generate Noise Images ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#noise-image-generation) )
-- Do a few annoying tweaks required before running the stimulus for the first time on a new machine. (I'll fix these.. I promise) ( [jump to section](https://github.com/ejduwell/revCorrStim/tree/main?tab=readme-ov-file#machine-specific-tweaks-that-need-to-be-done-before-running-stimulus-for-first-time) )
+- Do a few annoying tweaks required before running the stimulus for the first time on a new machine. (I'll fix these.. I promise) ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#machine-specific-tweaks-that-need-to-be-done-before-running-stimulus-for-first-time) )
 - Run the Stimulus ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#stimulus-presentation) )
 - Generate CIs/SIs ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#ci--si-generation) )
 
