@@ -509,8 +509,6 @@ How to use it:
   <p align="center">
 
 4) It will then ask whether your want to run the occluded base images, non-occluded base images or both. Specify as requested and hit enter:
-   
-   (I chose both)
 
    <p align="center">
 
@@ -627,7 +625,7 @@ How to use it:
   </p>
   
   <p align="center">
-    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/instructions5Snap.png" alt="stim11>
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/instructions5snap.png" alt="stim11>
     <br>
   </p>
   <p align="center">
