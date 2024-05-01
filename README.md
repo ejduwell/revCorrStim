@@ -558,7 +558,15 @@ The "main script" for running the stimulus/experiments is: /revCorrStim/matlab/s
   - The tdfs variable should be a 1xn cell array of cell arrays containing tdfs from each individual runs 1-n in the block.
 
   Here is an example tdf:
+  <p align="center">
+
+  </p>
   
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/tdfExample.png" alt="tdf">
+    <br>
+  </p>
+  <p align="center">  
   - Each row in the tdf is a trial
 
   Figures ploting the subject's response data and estimated psychometric curves are saved as .tif files.
