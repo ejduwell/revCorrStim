@@ -558,7 +558,126 @@ How to use it:
     <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/BlkCountFinalLooksOkPrompt.png" alt="stim6">
     <br>
   </p>
+  <p align="center">
 
+8) After you hit enter the stimulus session will begin.
+   
+   You will intitially see a gray screen that says "Task loading.. Please wait.."
+   
+   The instructions page should appear shortly after:
+   
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/instructions1Snap.png" alt="stim7">
+    <br>
+  </p>
+  <p align="center">
+  
+  Read the instructions and press enter to proceed.
+
+9) There will then be the following brief additional instruction:
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/instructions2Snap.png" alt="stim8">
+    <br>
+  </p>
+  <p align="center">
+
+  Read and then hit enter to proceed.
+
+10) If you said 'y' to practice trials, you should then see a third instruction block:
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/instructions3Snap.png" alt="stim9">
+    <br>
+  </p>
+  <p align="center">
+
+  Read and then hit enter to proceed.
+
+11) You should then see the following message:
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/instructions4Snap.png" alt="stim10">
+    <br>
+  </p>
+  <p align="center">
+
+   When you're ready, press enter to begin the the practice trials.
+
+12) When the block of practice trials is done, you should see:
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/instructions5Snap.png" alt="stim11>
+    <br>
+  </p>
+  <p align="center">
+
+  You can press 'r' to repeat the practice trials if desired. Otherwise press enter to continue.
+
+13) After you press enter you should see the following short message:
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/instructions6Snap.png" alt="stim12>
+    <br>
+  </p>
+  <p align="center">
+
+  Press enter to continue on to the actual experiment.
+
+14) You will briefly see a page that says "Task loading.. Please wait"
+    
+    After this you should see the following message:
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/instructions7Snap.png" alt="stim13>
+    <br>
+  </p>
+  <p align="center">
+
+  Press enter to start the actual experiment run.
+  
+15) When the run is complete, you should see the following page:
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/instructions8Snap.png" alt="stim14>
+    <br>
+  </p>
+  <p align="center">
+
+    
+ 
 ## CI / SI Generation
 
 The Matlab code for computing CIs/SIs is located in the '/revCorrStim/matlab/CIGen' subdirectory.
