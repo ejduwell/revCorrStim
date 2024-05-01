@@ -112,7 +112,7 @@ Follow the instructions below:
 3) Under the '%% System Parameters' subsection, change the 'outdir' to the name you want to assign to the output parent directory.
 4) Select which grouping parameters you want to use:
      - revCorrStim currently supports 3 different "object grouping parameters" out of the box (common region, texture, and luminance)
-     - each of these hase their own parameter subsection ('%% Common Region Parameters', '%% Texture Parameters', and '%% Luminance Parameters')
+     - each of these has its own parameter subsection ('%% Common Region Parameters', '%% Texture Parameters', and '%% Luminance Parameters')
      - to turn these on/off set the first parameter (T, CR, or L respectively) equal to either 1 or 0 (on or off).
      - You can, in fact, select any combination of these that you want. However, for the sake of simplicity, lets stick to luminance only for this example (set L=1, T=0, and CR=0)
 5) Set the range of possibile parameter values for object 1 and object 2:
