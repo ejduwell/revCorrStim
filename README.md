@@ -522,7 +522,43 @@ How to use it:
   </p>
   <p align="center">
 
-5) 
+5) It will then ask which noise you want to use. Specify as requested and hit enter:
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/nTypePromptSnap.png" alt="stim4">
+    <br>
+  </p>
+  <p align="center">
+ 
+6) It will then ask if you want to run practice trials. Specify, then hit enter:
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/practiceTrialPromptSnap.png" alt="stim5">
+    <br>
+  </p>
+  <p align="center">
+
+
+7) It will then state the number of blocks it plans to run and will ask you to accept.
+   Enter 'y' to accept, or 'n' to not. If you enter 'n' it will ask you how many blocks you want to run.
+
+   <p align="center">
+
+  </p>
+  
+  <p align="center">
+    <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/BlkCountFinalLooksOkPrompt.png" alt="stim6">
+    <br>
+  </p>
+
 ## CI / SI Generation
 
 The Matlab code for computing CIs/SIs is located in the '/revCorrStim/matlab/CIGen' subdirectory.
