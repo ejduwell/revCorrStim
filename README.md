@@ -322,7 +322,7 @@ To point to a different expmtDescriptorFile:
   expParz = eval(expDescFile);
   % ========================================================================= 
   ```
-- To point to a different descriptor file, simply set the 'expDescFile' parameter equal to your new descriptor file name string (without the .m extension);
+- To point to a different descriptor file, simply set the 'expDescFile' parameter equal to your new descriptor file name string (without the .m extension)
 
 ### Running the Stimulus:
 
