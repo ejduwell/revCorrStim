@@ -231,7 +231,7 @@ In short this noise is essentially a weighted combination of sub-images which ar
       So, make sure you pick a descriptive name for baseOutDirName
       
 
-### whiteNoise2File_v1.m
+### whiteNoise2File_v1.m:
 
 This function generates a specified number of white noise images in an output directory.
 
