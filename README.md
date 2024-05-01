@@ -283,7 +283,7 @@ An instance of an experiment descriptor file is included in the initial package 
 
 The expmtDescriptorFile is essentially a 'master descriptor file' that is intended to serve as the 'one-stop-shop' where key parameters regarding choice of base images, noise images, QUEST parameters, and trial timing parameters are set.
 
-Parameters set here should all be stored within a unified struct variable called 'expParz' that is intialized at the beginning of the file. This struct is exported as the output variable such that other programs in the revCorrStim repository can access them by calling the expmtDescriptorFile.
+Parameters set here should all be stored within a unified struct variable called 'expParz' that is intialized at the beginning of the file. This struct is exported as an output variable such that other programs in the revCorrStim repository can access/invoke them by calling 'expParz = expmtDescriptorFile'.
 
 To update your expmtDescriptorFile_1:
 1) Open expmtDescriptorFile_1.m in your matlab editor
