@@ -509,6 +509,7 @@ How to use it:
   <p align="center">
 
 4) It will then ask whether your want to run the occluded base images, non-occluded base images or both. Specify as requested and hit enter:
+   
    (I chose both)
 
    <p align="center">
