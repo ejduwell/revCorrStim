@@ -593,9 +593,41 @@ The "main script" for running the stimulus/experiments is: /revCorrStim/matlab/s
       - 17 "noiseImgFile" : full path to the noise image for this trial
       - 18 "noiseImg" : copy of the noise image for this trial
 
-  Figures ploting the subject's response data and estimated psychometric curves are saved as .tif files.
+  
+  - Figures ploting the subject's response accuracy data and estimated psychometric curve fits are saved as .tif files for each run:
+      <p align="center">
 
-  The complete command window diary for the session is saved in a file called commandWindowDiary
+      </p>
+      
+      <p align="center">
+        <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/example_krnlNz_lum_both_rep_1.png" alt="pltExmpl1">
+        <br>
+      </p>
+      <p align="center">  
+    
+  -  To quicky convey variability in accuracy / psychometric curve estimates across a block, an animated .gif is saved that displays run data in rapid succession:
+        <p align="center">
+
+      </p>
+      
+      <p align="center">
+        <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/krnlNz_lum_both_reps1-5.gif" alt="pltExmpl2">
+        <br>
+      </p>
+      <p align="center">  
+      
+  -  Along these same lines, a plot of the mean (solid line), standard deviation (shaded region), and range (dotted lines) is created for the psychometric curve fits across runs:
+        <p align="center">
+
+      </p>
+      
+      <p align="center">
+        <img src="https://github.com/ejduwell/revCorrStim/blob/main/images/githubExamples/example_krnlNz_lum_both_MeanStDev.png" alt="pltExmpl3">
+        <br>
+      </p>
+      <p align="center"> 
+  
+  The complete command window diary containing all outputs on the Matlab command window during the session is saved in a file called commandWindowDiary
 
   Finally, in the interest of repeatability, transparency, documentation, and complete neuroticism, a .tar.gz file is also saved which contains compressed copies of every piece of code (files ending in .m anywhere within the recCorrStim directory) at the time the session was run.
 
