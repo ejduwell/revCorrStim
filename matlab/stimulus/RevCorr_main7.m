@@ -97,7 +97,9 @@ fprintf(greeting2)
 fprintf('\n')
 versionmsg = strcat("(",current_version, ", Written by: E.J. Duwell, PhD)");
 versionmsg = cln_cmdlinemsg(ref_str,versionmsg," ");
-instr_pgMsg = strcat("(Read: ",mainDir,"/README.md)");
+
+instr_pgMsg = "Read: https://github.com/ejduwell/revCorrStim/blob/main/README.md";
+
 instr_pgMsg = cln_cmdlinemsg(ref_str,instr_pgMsg," ");
 fprintf(versionmsg)
 fprintf(instr_pgMsg)
