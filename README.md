@@ -545,6 +545,7 @@ The "main script" for running the stimulus/experiments is: /revCorrStim/matlab/s
   - SO MAKE SURE YOUR IDS ARE UNIQUE FOR EACH SUBJECT/ARE NOT RE-USED!
 
   ### Subject output directory structure:
+  
   - XXX (name matching subject-id)
       - Within the main subject folder, there are seperate subdirectories for runs collected with white (white) and kernel (krnlNz) noise
           - Within each of those are separate subdirectories for runs collected using the luminance (lum) , texture (tex), and common region (cr) stimulus versions
