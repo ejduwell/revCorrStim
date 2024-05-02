@@ -560,9 +560,9 @@ The "main script" for running the stimulus/experiments is: /revCorrStim/matlab/s
 
   #### The XXX.mat data file:
   The subject's data are saved in a .mat file named XXX.mat (where 'XXX' is the subject's unique ID) in the XXX_TIMESTAMP_cmpltd directory for each block.
-    - The entire workspace from the block is saved within this .mat file such that any aspect of the session can be referenced later
-    - However the primary output variable you'll likely be most interested in is called 'tdfs' (stands for trial descriptor files)
-    - The tdfs variable should be a 1xn cell array of cell arrays containing tdfs from each individual runs 1-n in the block.
+  - The entire workspace from the block is saved within this .mat file such that any aspect of the session can be referenced later
+  - However the primary output variable you'll likely be most interested in is called 'tdfs' (stands for trial descriptor files)
+  - The tdfs variable should be a 1xn cell array of cell arrays containing tdfs from each individual runs 1-n in the block.
 
   Here is an example tdf:
   <p align="center">
