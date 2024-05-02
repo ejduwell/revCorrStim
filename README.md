@@ -595,7 +595,7 @@ The "main script" for running the stimulus/experiments is: /revCorrStim/matlab/s
       - 17 "noiseImgFile" : full path to the noise image for this trial
       - 18 "noiseImg" : copy of the noise image for this trial
   
-  - Columns 19:end will vary based on the stimulus version run, however in the case above the represent:
+  - Columns 19:end will vary based on the stimulus version you run, however in the case above they represent:
       - 19 "lumDiff" : difference in luminance between objects 1 and 2 (col 19 will always be the parameter controlled by QUEST)
       - 20 "lum1" : luminance 1 parameter value
       - 21 "lum2" : luminance 2 parameter value
