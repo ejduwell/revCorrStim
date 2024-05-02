@@ -62,6 +62,7 @@ This section explains how to use various aspects of the revCorrStim repository. 
 - Generate Base Images ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#base-image-generation) )
 - Generate Noise Images ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#noise-image-generation) )
 - Run the Stimulus ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#stimulus-presentation) )
+- Access/View Data Outputs From A Run ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#data-output) )
 - Generate CIs/SIs ( [jump to section](https://github.com/ejduwell/revCorrStim/blob/main/README.md#ci--si-generation) )
 
 In general, each of these aspects of the revCorrStim repository were intentionally created to stand alone as seperate "modules."
