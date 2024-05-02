@@ -299,7 +299,7 @@ To update your expmtDescriptorFile_1:
    % common region bi directory:
     expParz.BI_dirs.cr="CHANGE_TO_YOUR_DIR_NAME";
    ```
-3) Similarly, you will also need to adjust the directory names in the '%% Set Noise Image Parameters' section to point your desired noise directories that you created in the revCorrStim/subdirectory.
+3) Similarly, you will also need to adjust the directory names in the '%% Set Noise Image Parameters' section to point your desired noise directories that you created in the revCorrStim/noise subdirectory.
 4) Finally, you will need to scroll down to the '%% Set Parameters for Example Images / Instructions Page' subsection and update the paths to point ot the example images and noise directories you want to present on the instruction page for the luminance, common region and texture versions of the task.
 
 If you wish, you can update any of the other parameters within the expmtDescriptorFile as well. I've tried to provide comment describing what each one is / what they do. 
