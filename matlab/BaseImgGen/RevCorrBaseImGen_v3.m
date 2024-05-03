@@ -403,7 +403,8 @@ Screen('FillRect', backwindow_cap, gray);  % blank out the offscreen window
 
 % Create Base Image
 %[backwindow] = PORClinkLTCR_v1(mainsrc, window, backwindow,vertOcc,horzOcc,boxUL,boxUR,boxLL,boxLR,gray,lum1,lum2,trialprop,occluders,CR,CR_penWidth,CR_penLum,CR_al,CR_obj,scrnWidHei,rscale_f1, rscale_f2, image_in, db_mode,normalize,norm_range,maindim,T,T_al,L,L_al,lumWt,cr_long,cr_short,cmdLineOut);
-[backwindow] = PORClinkLTCR_v2(mainsrc, window, backwindow,vertOcc,horzOcc,boxUL,boxUR,boxLL,boxLR,gray,lum1,lum2,trialprop,occluders,CR,CR_penWidth,CR_penLum,CR_al,CR_obj,scrnWidHei,rscale_f1, rscale_f2, image_in, db_mode,normalize,norm_range,maindim,T,T_al,L,L_al,lumWt,cr_long,cr_short,cr_CornerRad,cmdLineOut);
+%[backwindow] = PORClinkLTCR_v2(mainsrc, window, backwindow,vertOcc,horzOcc,boxUL,boxUR,boxLL,boxLR,gray,lum1,lum2,trialprop,occluders,CR,CR_penWidth,CR_penLum,CR_al,CR_obj,scrnWidHei,rscale_f1, rscale_f2, image_in, db_mode,normalize,norm_range,maindim,T,T_al,L,L_al,lumWt,cr_long,cr_short,cr_CornerRad,cmdLineOut);
+[backwindow] = PORClinkLTCR_v3(mainsrc, window, backwindow,vertOcc,horzOcc,boxUL,boxUR,boxLL,boxLR,gray,lum1,lum2,trialprop,occluders,CR,CR_penWidth,CR_penLum,CR_al,CR_obj,scrnWidHei,rscale_f1, rscale_f2, image_in, db_mode,normalize,norm_range,maindim,T,T_al,L,L_al,lumWt,cr_long,cr_short,cr_CornerRad,cmdLineOut);
 
 % Add the fixation point and lines
 [backwindow_fix,backwindow] = PORCfix4a(backwindow_fix,backwindow,fixrect,occlines,penW,grayblack);

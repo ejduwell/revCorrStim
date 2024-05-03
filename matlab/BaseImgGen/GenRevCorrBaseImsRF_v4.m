@@ -31,7 +31,8 @@ cd(mlab_dir);
     %% System Parameters
     %--------------------------------------------------------------
     %outdir = "test3_CROnlyWlum51"; % Specify output directory (which will be created)
-    outdir = "test5_TexOnly"; % Specify output directory (which will be created)
+    %outdir = "test5_TexOnly"; % Specify output directory (which will be created)
+    outdir = "NewBIsTest_texLum_11steptex_11steplum"; % Specify output directory (which will be created)
 
     %outdir = "LumTest5WhiteNoiseRan"; % Specify output directory (which will be created)
     cd("..");
@@ -69,7 +70,8 @@ cd(mlab_dir);
     %CR_penLum=linspace(63.75,191.25,56);
     
     %CR_penLum=linspace(127.5,255,101);
-    CR_penLum=linspace(0,255,101);
+    %CR_penLum=linspace(0,255,101);
+    CR_penLum=linspace(0,255,11);
 
     CR_al = 1; % Specify whether the common region should align with the objects (1) or be perpendicular (0)
     
@@ -87,13 +89,14 @@ cd(mlab_dir);
         cr_CornerRad=60;
         CR_obj = "NA";
     end
+
     %% Texture Parameters
     %--------------------------------------------------------------
     T = 1; % Run texture version? (1=yes, 0=no)
     T_al = 1; % Specify whether the texture should align with the objects (1) or be perpendicular (0)
     
     %image_in = 'checkerboard_rs10_nearest.jpg';
-    image_in = 'checkerBrd_5000by5000Array_50by50_Checks.png';
+    image_in = 'checkerBrd_5000by5000Array_100by100_Checks.png';
 
     imdirBase = strcat(mlab_dir,"/","texImgs");
 
@@ -116,7 +119,9 @@ cd(mlab_dir);
     % Target size may not be larger than input image size in any dimension.
     % ...
     % Then Thats whats going on..
-    rscale_f1 = linspace(1,2.5,101);  % texture scaling factor
+%     rscale_f1 = linspace(1,2.5,101);  % texture scaling factor
+%     rscale_f2 = 1./rscale_f1; % texture scaling factor 2 (make all values the inverse of rscale_f1 counterparts..)
+    rscale_f1 = linspace(1,2.5,11);  % texture scaling factor
     rscale_f2 = 1./rscale_f1; % texture scaling factor 2 (make all values the inverse of rscale_f1 counterparts..)
 
     if T==0
@@ -129,17 +134,17 @@ cd(mlab_dir);
     end
     %% Luminance Parameters
     %--------------------------------------------------------------
-    L = 0; % Run luminance version? (1=yes, 0=no)
+    L = 1; % Run luminance version? (1=yes, 0=no)
     
     %LUM VARY around background (Larger # of steps) (FOR LUM ONLY)
     %lum1 = linspace(0,127.5,127);  
     %lum2 = linspace(127.5,255,127); % num between 0-255 150
     
-    %LUM1&2 BOTH VARY SAME RANGE 0-255 (FOR CR w/LUM)  
-    lum1 = linspace(0,255,11);  
-    lum2 = linspace(0,255,11); % num between 0-255 150
+    %LUM VARY around background (Larger # of steps) (FOR LUM ONLY)
+    lum1 = linspace(0,127.5,11);  
+    lum2 = linspace(127.5,255,11); % num between 0-255 150
 
-    lumWt = 1; % luminance weight (for texture/luminance combo.. note: texture weight will be 1-lumWt..) (num between 0-1)
+    lumWt = 0.5; % luminance weight (for texture/luminance combo.. note: texture weight will be 1-lumWt..) (num between 0-1)
     L_al = 1; % Specify whether the luminance should align with the objects (1) or be perpendicular (0)
 
     if L==0
@@ -176,6 +181,14 @@ cd(mlab_dir);
     itParNamz = {"occluders","oriCon","objcon","lum1","lum2","CR_penLum","CR_obj"}; % list names of parameter variables you want to iterate (in itrParz above) as strings
     Eqlz = {"abs(CR_penLum-127.5)>0","lum1==lum2","lum1==51.0"}; % specify equality conditions you do now want
     itrParsCom = combvec(itrPars{1},itrPars{2},itrPars{3},itrPars{4},itrPars{5},itrPars{6},itrPars{7}); % This builds a matrix of all the combos of pars in vectors listed in itrPars.    
+    end
+
+    % Tex + Lum attempt..
+    if T==1 && L==1 && CR==0
+    itrPars   = {occluders,oriCon,objcon,rscale_f1,rscale_f2,lum1,lum2};           % list names of parameter variables you want to iterate
+    itParNamz = {"occluders","oriCon","objcon","rscale_f1","rscale_f2","lum1","lum2"}; % list names of parameter variables you want to iterate (in itrParz above) as strings
+    Eqlz = {"rscale_f1~=rscale_f2","(rscale_f1*rscale_f2)==1","lum1~=lum2","((lum1+lum2)/2)==127.5"}; % specify equality conditions you do now want
+    itrParsCom = combvec(itrPars{1},itrPars{2},itrPars{3},itrPars{4},itrPars{5},itrPars{7},itrPars{6}); % This builds a matrix of all the combos of pars in vectors listed in itrPars.
     end
    
     %More complex version of above..
