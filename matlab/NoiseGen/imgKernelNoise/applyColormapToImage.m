@@ -1,4 +1,6 @@
 function colorImg = applyColormapToImage(grayImg, colormapName)
+
+    jnk=figure;
     % Ensure the grayscale image is in double format and normalized
     if ~isa(grayImg, 'double')
         grayImg = double(grayImg);
@@ -20,5 +22,5 @@ function colorImg = applyColormapToImage(grayImg, colormapName)
     colorImg = im2double(colorImg);
 
     %close any figure windows which might be created above..
-    close gcf
+    close(jnk);
 end
