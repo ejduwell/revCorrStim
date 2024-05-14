@@ -31,7 +31,7 @@ end
 %alpha = 0.5;
 %thrCIBIolay = labeloverlay(biIn,combMskCIAdj,'colormap',"cool",'transparency',1-alpha);
 
-figure('Position', [10 10 figSizeX figSizeY]); % open figure window
+figure('Position', [0 0 figSizeX figSizeY]); % open figure window
 % plot base image..
 subplot(2,3,1);
 % Display the grayscale base image
@@ -137,7 +137,7 @@ title({'BI Overlaid with Thresholded CI2 Nocc Only',titleStr})
 hold off;
 
 % Add title for entire panel.
-sgt = sgtitle({strcat(configStr,": ",noiseConfigStr),""},'Color','red');
+sgt = sgtitle({noiseConfigStr,""},'Color','red');
 sgt.FontSize = 20;
 
 end
