@@ -136,8 +136,24 @@ titleStr=strcat("(upper and lower ",num2str(ciThr),"th percentile)");
 title({'BI Overlaid with Thresholded CI2 Nocc Only',titleStr})
 hold off;
 
-% Add title for entire panel.
-sgt = sgtitle({noiseConfigStr,""},'Color','red');
-sgt.FontSize = 20;
+% Split title in half if greater than threshold
+titleLngth=length(char(noiseConfigStr));
+lenThrld=100;
+splitChar=" ";
+if titleLngth>lenThrld
+    hlfLen= round(titleLngth/2);
+    noiseConfigStr=char(noiseConfigStr);
+    [firstPart, secondPart] = splitTitle(noiseConfigStr, hlfLen, splitChar);
+    % Add title for entire panel.
+    sgt = sgtitle({firstPart,secondPart," "},'Color','red');
+    sgt.FontSize = 20;
+else
+    % Add title for entire panel.
+    sgt = sgtitle({noiseConfigStr,""},'Color','red');
+    sgt.FontSize = 20;
+end
+
+
+
 
 end

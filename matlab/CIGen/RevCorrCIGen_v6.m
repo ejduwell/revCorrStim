@@ -49,9 +49,7 @@ end
 randTrialSelect=0; % if 1, will reduce image set to selection of nRandTrials random trials
 nRandTrials=1000;
 nRepz=1; %number of repetitions.. (only makes sense to set > 1 if randTrialSelect is on)
-
 slctByBlkNum=1; %**** NEED TO BUILD OUT
-
 
 % RESPONSE BUTTONS FOR THE 2 ORI CONDITIONS
 conRespz=['m','z']; % response options for the two conditions (right and left angle here..)
@@ -64,12 +62,12 @@ oconVal=[1,2]; % object condition to use oconSplit is on if  1 or 2
 clrMap="parula"; % colormap used on colorized/thresholded CI overlays for real and ideal CIs over the base image..
 alphVal=0.65; % alpha/transparency value used on thresholded/colorized CI overlay..
 % specify weights and thresholds
-ciThr=50; % percent threshold used for thesholded/colorized CI and ideal CI overlays..
+ciThr=90; % percent threshold used for thesholded/colorized CI and ideal CI overlays..
 useSmthVer4clrd=0; % if 1, will colorize/threshold smoothed version instead.
 
 % BASE IMAGES:
 path2BIz=cell(1,2); % base image 1 and 2 path array..
-path2BIz{1,1}="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test4_LumOnly-05-Mar-2024-10-12-48/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"; %path to base image file
+path2BIz{1,1}="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test4_LumOnly-05-Mar-2024-10-12-48/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_2.png"; %path to base image file
 path2BIz{1,2}="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test4_LumOnly-05-Mar-2024-10-12-48/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"; %path to base image file
 desiredDimz=[512,512]; % bi/ci dims
 biIn1 = imgReformater(imread(path2BIz{1,1}),desiredDimz); % read in and format base image to desired dimensions
@@ -79,16 +77,22 @@ biIn2 = imgReformater(imread(path2BIz{1,2}),desiredDimz); % read in and format b
 % Ori Flip Pars
 oriConFlp=1; % if 1, will flip all noise from one of the two conditions all on axis specified by before making CI.. (adam's request)
 oriFlpAxis=2; % axis along which flip will occur if oriConFlp is on/=1. (1=vertical, 2=horiz)
-FlpdOriCon=1; % which orientation condition's noise frames get flipped? (1=Right or 2=Left)
+FlpdOriCon=2; % which orientation condition's noise frames get flipped? (1=Right or 2=Left)
 % Obj Flip Pars
 objConFlp=1;
 objFlpAxis=1;
-FlpdObjCon=1; % which object condition's noise frames get flipped? (1 or 2)
+FlpdObjCon=2; % which object condition's noise frames get flipped? (1 or 2)
+              % NOTE: for lum: 
+              % ocon1 = darker on top, lighter on bottom,
+              % ocon2 = lighter on top darker on bottom
+              % so if you flip ocon1 you've aligned to the cons where
+              % lighter is on top. if you flip ocon2 you've aligned to the
+              % cons where darker is on top.
 
 % SMOOTHING PARS
 %--------------------------------------------------------------------------
 % gaussian smoothing kernel size/sigma
-smthKrnlSigma=10;
+smthKrnlSigma=2;
 % filtering/smoothing domain : 'auto', 'spatial', or 'frequency'
 fDomain='auto'; 
 %--------------------------------------------------------------------------
@@ -96,7 +100,7 @@ fDomain='auto';
 % ------------                 BP Filter Pars:                 ------------
 %==========================================================================
 % Band Pass Filter On/Off
-bpFilter=1; % 0=don't bandpass filter; 1=apply bandpass filter to noise images..
+bpFilter=0; % 0=don't bandpass filter; 1=apply bandpass filter to noise images..
 
 % ------------ LOWER & UPPER BOUNDS OF BAND PASS FILTER WINDOW ------------
 lowerBnd=2; % lower frequency bound
@@ -291,7 +295,8 @@ noiseImgCol=18; % column containing noise images..
 if objConFlp==1
         for tt=1:size(fullTDF,1)
             if fullTDF{tt,end} == FlpdObjCon
-                fullTDF{tt,noiseImgCol}=flip(fullTDF{tt,noiseImgCol},objFlpAxis);           
+                %fullTDF{tt,noiseImgCol}=flip(fullTDF{tt,noiseImgCol},objFlpAxis);
+                fullTDF{tt,noiseImgCol}=flip(flip(fullTDF{tt,noiseImgCol},2),1);
             end
         end
 end
@@ -907,8 +912,30 @@ axis tight
 colorbar
 title("Nocc Only CI2 Raw")
 
-sgt = sgtitle({nonSmthStr,""},'Color','red');
-sgt.FontSize = 20;
+% Split title in half if greater than threshold
+titleLngth=length(char(nonSmthStr));
+lenThrld=100;
+splitChar=" ";
+if titleLngth>lenThrld
+    hlfLen= round(titleLngth/2);
+    nonSmthStr_In=char(nonSmthStr);
+    [firstPart, secondPart] = splitTitle(nonSmthStr_In, hlfLen, splitChar);
+    % Add title for entire panel.
+    sgt = sgtitle({firstPart,secondPart," "},'Color','red');
+    sgt.FontSize = 20;
+else
+    % Add title for entire panel.
+    sgt = sgtitle({nonSmthStr," "},'Color','red');
+    sgt.FontSize = 20;
+end
+
+% save if requested
+if saveFigz==1
+    frameTmp=getframe(gcf);
+    fig_fname=strcat(figDir,"/",nonSmthBaseFileStr,".png");
+    imwrite(frameTmp.cdata, fig_fname);
+end
+
 %==========================================================================
 
 % PLOT SMOOTHED CIs
@@ -964,9 +991,29 @@ axis tight
 colorbar
 title("Nocc Only CI2 Smooth")
 
-% Add title for entire panel.
-sgt = sgtitle({smthStr,""},'Color','red');
-sgt.FontSize = 20;
+% Split title in half if greater than threshold
+titleLngth=length(char(smthStr));
+lenThrld=100;
+splitChar=" ";
+if titleLngth>lenThrld
+    hlfLen= round(titleLngth/2);
+    smthStr_In=char(smthStr);
+    [firstPart, secondPart] = splitTitle(smthStr_In, hlfLen, splitChar);
+    % Add title for entire panel.
+    sgt = sgtitle({firstPart,secondPart," "},'Color','red');
+    sgt.FontSize = 20;
+else
+    % Add title for entire panel.
+    sgt = sgtitle({smthStr," "},'Color','red');
+    sgt.FontSize = 20;
+end
+
+% save if requested
+if saveFigz==1
+    frameTmp=getframe(gcf);
+    fig_fname=strcat(figDir,"/",smthBaseFileStr,".png");
+    imwrite(frameTmp.cdata, fig_fname);
+end
 
 end
 
