@@ -29,12 +29,15 @@ rng("shuffle"); % ensure random number generators are shuffled...
 %% Set Parameters
 
 % SUBJECT AND SESSION PARS
+%==========================================================================
 subjID="DVH"; % 3 letter subject ID
 noiseType="krnlNz"; % which noise (white or krnlNz)
 stimType="lum"; % which grouping parameter type (lum,cr, or tex)
 stimVer="both"; % which version (occ, nocc, or both)
+%==========================================================================
 
 % FIGURE OUTPUT PARS
+%==========================================================================
 saveFigz=1; % if 1, will save auto-named copies of each figure
 figDims= [2000, 1500]; % figure dimensions ([xdim,ydim])
 figDir="CI_FIGZ"; % specify name of main figure output directory to create 
@@ -44,19 +47,65 @@ figDir=strcat(main_dir,"/data_master/",subjID,"/",figDir,"/",noiseType,"/",stimT
 if ~isfolder(figDir)
 mkdir(figDir);
 end
+%==========================================================================
 
 % TRIAL # REDUCTION/SELECTION PARS
-randTrialSelect=0; % if 1, will reduce image set to selection of nRandTrials random trials
+%==========================================================================
+% random trial selection options
+%--------------------------------------------------------------------------
+randTrialSelect=0; % if 1, will reduce image set to selection of nRandTrials random trials out of to total set
 nRandTrials=1000;
 nRepz=1; %number of repetitions.. (only makes sense to set > 1 if randTrialSelect is on)
-slctByBlkNum=1; %**** NEED TO BUILD OUT
+%--------------------------------------------------------------------------
+
+% non-random trial selection options:
+%--------------------------------------------------------------------------
+% limit by top/first-n-trials overall
+selectTopNTrials=0; % if 1, limits trials to the topNTrlz specified below
+topNTrlz=300;
+
+% limit total number of blocks to the first topNBlx
+selectTopNBlks=1; % if 1, limits blocks included to the topNBlx specified below
+topNBlx=2;
+
+% limit the number of trials included within each run to the first runTrlLim
+lmtTrlsWithinRun=0; % if 1, will limit the trials included from each run to the first runTrlLim # specified below
+runTrlLim=100;
+
+% include initial quest block?
+useInitialQst=0; % if 0, will remove the first block (used for dialing in initial quest. if 1, includes it..
+
+%--------------------------------------------------------------------------
+
+%---------------------------------- NOTE ---------------------------------- 
+% Order in which trial limiting calls occur relative to each other
+% within the script:
+% 0) useInitialQst
+% 1) selectTopNBlks
+% 2) lmtTrlsWithinRun
+% 3) selectTopNTrials
+% 4) randTrialSelect
+
+% Knowing this order is probably important for understanding interpreting 
+% which precise trials are included/removed when multiple options are
+% selected
+%
+% Also: know that all of the trial limitiation options are coded to only 
+% remove trials, blocks,etc  if the specified #/limit is exceeded..
+%--------------------------------------------------------------------------
+
+%==========================================================================
 
 % RESPONSE BUTTONS FOR THE 2 ORI CONDITIONS
+%==========================================================================
 conRespz=['m','z']; % response options for the two conditions (right and left angle here..)
+%==========================================================================
 
 % OBJECT CONDITION PARS (WHICH OBJECT IS UPPER VS. LOWER)
+%==========================================================================
 oconSplit=0; % if 1, will seperate off only one of the 2 object conditions..
 oconVal=[1,2]; % object condition to use oconSplit is on if  1 or 2
+%==========================================================================
 
 % Specify CI overlay color parameters
 clrMap="parula"; % colormap used on colorized/thresholded CI overlays for real and ideal CIs over the base image..
@@ -66,14 +115,17 @@ ciThr=90; % percent threshold used for thesholded/colorized CI and ideal CI over
 useSmthVer4clrd=0; % if 1, will colorize/threshold smoothed version instead.
 
 % BASE IMAGES:
+%==========================================================================
 path2BIz=cell(1,2); % base image 1 and 2 path array..
 path2BIz{1,1}="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test4_LumOnly-05-Mar-2024-10-12-48/occ/L/BaseIm_occ_0_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_2.png"; %path to base image file
 path2BIz{1,2}="/home/eduwell/SynologyDrive/SNAP/projects/revCorrStim/images/test4_LumOnly-05-Mar-2024-10-12-48/nocc/L/BaseIm_occ_1_ori_z__CR_0_CRpw_4_CRpl_0_CRal_1_CRob_NA_CRdm_3214_T_0checkrz_Tr1_NA_Tr2_NA_Tal_1_L_1_lum1_0_lum2_255_LWT_1_Lal_1_Ocon_1.png"; %path to base image file
 desiredDimz=[512,512]; % bi/ci dims
 biIn1 = imgReformater(imread(path2BIz{1,1}),desiredDimz); % read in and format base image to desired dimensions
 biIn2 = imgReformater(imread(path2BIz{1,2}),desiredDimz); % read in and format base image to desired dimensions
+%==========================================================================
 
 % FLIP PARS
+%==========================================================================
 % Ori Flip Pars
 oriConFlp=1; % if 1, will flip all noise from one of the two conditions all on axis specified by before making CI.. (adam's request)
 oriFlpAxis=2; % axis along which flip will occur if oriConFlp is on/=1. (1=vertical, 2=horiz)
@@ -88,18 +140,19 @@ FlpdObjCon=2; % which object condition's noise frames get flipped? (1 or 2)
               % so if you flip ocon1 you've aligned to the cons where
               % lighter is on top. if you flip ocon2 you've aligned to the
               % cons where darker is on top.
+%==========================================================================
 
 % SMOOTHING PARS
-%--------------------------------------------------------------------------
+%==========================================================================
 % gaussian smoothing kernel size/sigma
-smthKrnlSigma=2;
+smthKrnlSigma=5;
 % filtering/smoothing domain : 'auto', 'spatial', or 'frequency'
 fDomain='auto'; 
-%--------------------------------------------------------------------------
-
-% ------------                 BP Filter Pars:                 ------------
 %==========================================================================
-% Band Pass Filter On/Off
+
+% BP FILTER PARS              
+%==========================================================================
+% Butterworth Band Pass Filter On/Off
 bpFilter=0; % 0=don't bandpass filter; 1=apply bandpass filter to noise images..
 
 % ------------ LOWER & UPPER BOUNDS OF BAND PASS FILTER WINDOW ------------
@@ -107,27 +160,6 @@ lowerBnd=2; % lower frequency bound
 upperBnd=20; % upper frequency bound
 filterOrder=4; % filter order
 pltFig=0;
-
-% LOW PASS #1
-%--------------------------------------------------------------------------
-lowFreq=0;  % lower frequency bound of bandpass filter..
-highFreq=5; % upper frequency bound of bandpass filter..
-%--------------------------------------------------------------------------
-% LOW PASS #2
-%--------------------------------------------------------------------------
-%lowFreq=0;  % lower frequency bound of bandpass filter..
-%highFreq=32; % upper frequency bound of bandpass filter..
-%--------------------------------------------------------------------------
-% LOW PASS #3
-%--------------------------------------------------------------------------
-%lowFreq=0;  % lower frequency bound of bandpass filter..
-%highFreq=16; % upper frequency bound of bandpass filter..
-%--------------------------------------------------------------------------
-% HIGH PASS
-%--------------------------------------------------------------------------
-% lowFreq=16;
-% highFreq=256;
-%--------------------------------------------------------------------------
 %==========================================================================
 
 dataDir=strcat(main_dir,"/data_master/",subjID,"/",noiseType,"/",stimType,"/",stimVer);
@@ -195,6 +227,25 @@ disp(" ");
 % (folders contain timestamp in name)
 qst_subDs = sortrows(qst_subDs,'ascend'); 
 
+% if useInitialQst=0, don't include the first block..
+if useInitialQst==0
+qst_subDs=qst_subDs(2:end,:);
+end
+
+if selectTopNBlks==1
+    disp(" ");
+    disp(strcat("selectTopNBlks is ON... reducing number of blocks to ", num2str(topNBlx)," if the total number exceeds this limit..."))
+    disp(" ");
+    if size(qst_subDs,1)>topNBlx
+    disp(strcat("block limit exceeded.. limiting to ", num2str(topNBlx), " blocks.."));
+    disp(" ");
+    qst_subDs=qst_subDs(1:topNBlx,:);
+    numFolders=topNBlx; % reset numFolders to equal topNBlx bc we clipped off the rest..
+    else
+    disp("# of blocks present does not exceed limit... moving on...");
+    disp(" ");
+    end
+end
 % Enter completed session directory and load the tdfs into a struct
 % =========================================================================
 allTDFs=struct; % pre-allocate
@@ -236,6 +287,15 @@ for bb=1:numFolders
     for ii=1:size(tdfs,2)
         thisTDF=tdfs{1,ii};
         thisTDF(:,end+1)={blkCountr}; % add block number in final additional column
+
+        % if lmtTrlsWithinRun is on:
+        % limit each run to runTrlLim # of trials..
+        if lmtTrlsWithinRun==1  
+            if (size(thisTDF,1)+1)>runTrlLim
+            thisTDF=thisTDF(1:(runTrlLim+1),:);
+            end
+        end
+
         fullTDF=vertcat(fullTDF,thisTDF(2:end,:)); % concatenate all but the top header row onto the fullTDF array
         blkCountr=blkCountr+1; % update block countr
     end
@@ -257,6 +317,11 @@ disp(" ");
 
 
 %% Extract/add object condition column (ocon) by using file names..
+% note: the "object condition" specifies which of the two objects (upper or
+% lower) has the larger/smaller parameter value. In the case of luminance,
+% this means which is darker vs. lighter, in texture: which is shrunk vs.
+% enlarged, in common region: which is encircled in the common region.
+
 fullTDF{1,end+1}="ObjectCon";
 for hh=2:size(fullTDF,1)
     parTagzTmp=["Ocon"];
@@ -268,11 +333,26 @@ end
 headerz=fullTDF(1,:);
 fullTDF=fullTDF(2:end,:);
 
-%% Reduce to random sub-selection of trials if requested
+%% Reduce trials to a sub-selection if requested
 
+% if selectTopNTrials is on, take only the topNTrlz
+%--------------------------------------------------------------------------
+if selectTopNTrials==1
+    if size(fullTDF,1)>topNTrlz
+    fullTDF = fullTDF(1:topNTrlz,:);
+    end
+    nTrialStr=num2str(size(fullTDF,1));
+else
+    nTrialStr=num2str(size(fullTDF,1));
+end
+%--------------------------------------------------------------------------
+
+% if randTrialSelect is on reduce trials to 
+% specified number by random selection
+%--------------------------------------------------------------------------
 rndmyzCol=6; % randomization column number
 if randTrialSelect==1
-
+    if size(fullTDF,1)>nRandTrials
     % make/fill randomization column
     nTrlTotal=size(fullTDF,1);
     randValz=num2cell(rand([nTrlTotal,1]));
@@ -283,11 +363,15 @@ if randTrialSelect==1
 
     % Take the top nRandTrials rows
     fullTDF = fullTDF(1:nRandTrials,:);
+    end
 
     nTrialStr=num2str(size(fullTDF,1));
 else
     nTrialStr=num2str(size(fullTDF,1));
 end
+%--------------------------------------------------------------------------
+
+
 
 %% Apply Requested Flips for Noise Frames Based on Orientation and Object Conditions
 
